@@ -1,111 +1,72 @@
 const db = require("../../db/index");
 
-const getUsers = async (req, res, next) => {
+const getAllSubreddits = async (req, res, next) => {
     try {
-        let users = await db.any(`SELECT * FROM users`);
+        let subreddits = await db.any(`SELECT * FROM subreddits`);
         res.status(200).json({
             status: "Success",
-            message: "all users",
-            payload: users
+            message: "all subreddits",
+            payload: subreddits
         })
     } catch (err){
         res.status(400).json({
             status: "Error",
-            message: "Couldn't get all users",
+            message: "Couldn't get all subreddits",
             payload: err
         })
         next()
     }
 }
 
-const logInUser = async (req, res, next) => {
-    try{
-        let user = await db.one(
-            `SELECT * FROM users WHERE user_name = '${req.body.user_name}' AND password = '${req.body.password}'`
-            );
-            res.status(200).json({
-                status: "Success",
-                message: "user logged in",
-                payload: user
-            })
-    } catch (err){
-        res.status(400).json({
-            status: "Error",
-            message: "Couldn't log in user",
-            payload: err
-        })
-        next(err);
-    }
-}
 
-const getUserId = async (req, res, next) => {
+const getSubreddit = async (req, res, next) => {
     try {
-        let user = await db.one(`SELECT * FROM users WHERE id = '${req.params.id}'`);
+        let subreddit = await db.one(`SELECT * FROM subreddits WHERE id = '${req.params.id}'`);
         res.status(200).json({
           status: "Success",
-          message: "user retrieved by id",
-          payload: user
+          message: "subbreddit was retrieved by id",
+          payload: subreddit
         });
       } catch (err){
         res.status(400).json({
             status: "Error",
-            message: "Couldn't get user by id",
+            message: "Couldn't get subreddit by id",
             payload: err
         })
         next(err);
       }
 }
 
-const getUserUsername = async (req, res, next) => {
+const addSubreddit = async (req, res, next) => {
     try {
-        let user = await db.any(
-          `SELECT * FROM users WHERE user_name LIKE '${req.params.user_name}%'`
-        );
+        let subreddit = await db.one(
+            `INSERT INTO subreddits (user_id, subname) VALUES('${req.body.user_id}', '${req.body.subname}') RETURNING *`)
         res.status(200).json({
-          status: "Success",
-          message: "Grabbed user by user_name",
-          payload: user
-        });
-      } catch (err){
-        res.status(400).json({
-            status: "Error",
-            message: "Couldn't get user by user_name",
-            payload: err
-        })
-        next(err);
-      }
-}
-
-const addUser = async (req, res, next) => {
-    try {
-        let user = await db.one(
-            `INSERT INTO users (user_name, email, password) VALUES('${req.body.user_name}', '${req.body.email}', '${req.body.password}') RETURNING *`)
-        res.status(200).json({
-            user,
+            subreddit,
             status: "Success",
-            message: "Added user"
+            message: "Added subreddit"
         })
     } catch (err){
         res.status(400).json({
             status: "Error",
-            message: "User not added",
+            message: "Subreddit not added",
             payload: err
         })
         next()
     }
 }
 
-const deleteUser = async (req, res, next) => {
+const deleteSubreddit = async (req, res, next) => {
     try {
-        await db.none(`DELETE from users WHERE id = ${req.params.id}`);
+        await db.none(`DELETE from subreddits WHERE id = ${req.params.id}`);
         res.status(200).json({
           status: "Success",
-          message: "User Has Been Deleted"
+          message: "Subreddit Has Been Deleted"
         });
       } catch (err){
         res.status(400).json({
             status: "Error",
-            message: "User not deleted",
+            message: "Subreddit not deleted",
             payload: err
         })
         next(err);
@@ -114,4 +75,4 @@ const deleteUser = async (req, res, next) => {
 
 
 
-module.exports = { getUsers, logInUser, getUserId, getUserUsername, addUser, deleteUser };
+module.exports = { getAllSubreddits, getSubreddit, addSubreddit, deleteSubreddit };
