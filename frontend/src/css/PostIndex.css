@@ -1,0 +1,32 @@
+/* Dark Colors {
+    grey: #161617
+}
+*/
+
+.postCard{
+    display: flex;
+    flex-direction: column;
+    background-color: #161617;
+    color: white;
+    width: 40vw;
+    border: solid white 1px;
+    border-radius: 5px;
+}
+
+.postPostedHeader{
+    display: flex;
+    flex-direction: row;
+}
+
+.postDetails{
+    display: flex;
+    flex-direction: column;
+}
+
+.postSubreddit:hover{
+    cursor: pointer;
+}
+
+.postUser:hover{
+    cursor: pointer;
+}

@@ -2,7 +2,7 @@ const db = require("../../db/index");
 
 const getPosts = async (req, res, next) => {
     try {
-        let posts = await db.any(`SELECT * FROM posts`);
+        let posts = await db.any(`SELECT * FROM posts LEFT JOIN subreddits ON posts.posts_id = subreddits.id LEFT JOIN users ON posts.user_id = users.id`);
         res.status(200).json({
             status: "Success",
             message: "all posts",
@@ -20,7 +20,7 @@ const getPosts = async (req, res, next) => {
 
 const getPostBySub = async (req, res, next) => {
     try {
-        let posts = await db.one(`SELECT * FROM posts LEFT JOIN subreddits ON posts.subreddits_id = subreddits.id WHERE subreddits.id='${req.params.id}'`);
+        let posts = await db.one(`SELECT * FROM posts LEFT JOIN subreddits ON posts.posts_id = subreddits.id WHERE subreddits.id=${res.params.id}`);
         res.status(200).json({
           status: "Success",
           message: "posts retrieved by sub",
