@@ -1,8 +1,6 @@
 import React from "react";
 import DisplayPost from "../helper/DisplayPosts";
-// import Subreddit from "./subreddit";
-// import Post from "./Posts";
-// import "../css/Home.css";
+import "../css/HomePage.css";
 
 const HomePage = () => {
     return(

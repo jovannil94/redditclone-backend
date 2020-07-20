@@ -6,9 +6,9 @@
 .postCard{
     display: flex;
     flex-direction: column;
-    background-color: #161617;
+    background-color: #1B1B1C;
     color: white;
-    width: 40vw;
+    /* width: 40vw; */
     border: solid white 1px;
     border-radius: 5px;
 }

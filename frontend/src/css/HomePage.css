@@ -1,3 +1,14 @@
 .homePageContainer {
     background-color: black;
+    display: grid;
+    grid-column: 15% 35% 30% 20%;
+    height: 100vh;
+}
+
+.empty {
+    grid-column-start: 1;
+}
+
+.feed {
+    grid-column-start: 2;
 }
