@@ -2,20 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PostIndex from "./PostIndex";
 
-const DisplayPost = () => {
+const DisplayPost = ({page}) => {
     const [allPost, setAllPost] = useState([]);
 
-    const fetchPosts = async () => {
+    const fetchPosts = async (page) => {
         try {
-            let res = await axios.get(`http://localhost:3001/posts/`);
-            setAllPost(res.data.payload);
+            if(page="Home") {
+                let res = await axios.get(`http://localhost:3001/posts/`);
+                setAllPost(res.data.payload);
+            } else {
+                let res = await axios.get(`http://localhost:3001/posts/${page}`);
+                setAllPost(res.data.payload);
+            }
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
-        fetchPosts();
+        fetchPosts(page);
     }, [])
 
     return(
