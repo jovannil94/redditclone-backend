@@ -7,7 +7,7 @@ const DisplayPost = ({page}) => {
 
     const fetchPosts = async (page) => {
         try {
-            if(page="Home") {
+            if(page === "Home") {
                 let res = await axios.get(`http://localhost:3001/posts/`);
                 setAllPost(res.data.payload);
             } else {
@@ -21,7 +21,7 @@ const DisplayPost = ({page}) => {
 
     useEffect(() => {
         fetchPosts(page);
-    }, [])
+    }, [page])
 
     return(
         <div className="Feed">

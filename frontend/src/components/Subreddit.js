@@ -4,10 +4,9 @@ import DisplayPost from "../helper/DisplayPosts";
 
 const Subreddit = () => {
     const { id } = useParams();
-    debugger
     return (
         <div className="subredditContainer">
-            <DisplayPost Subreddit={Subreddit}/>
+            <DisplayPost page={id}/>
         </div>
     )
 }

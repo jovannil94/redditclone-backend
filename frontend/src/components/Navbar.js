@@ -3,7 +3,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import "../css/Navbar.css";
 // import logo from "../images/Reddit-Logo-Horizontal.png";
 import axios from "axios";
-// import SubredditIndex from "../helpers/SubredditIndex";
 
 const NavBar = () => {
     const [subreddits, setSubreddits] = useState([]);
@@ -20,6 +19,7 @@ const NavBar = () => {
     }
 
     const handleChange = (e) => {
+        debugger
         e.preventDefault();
         subredditRedirect(e.currentTarget.value)
     }
@@ -35,7 +35,7 @@ const NavBar = () => {
             <select onChange={handleChange}>
                 <option value="Home">Home</option>
                 {subreddits.map((subreddit) => 
-                    <option key={subreddit.id} value={subreddit.id}>{subreddit.subname} </option>
+                    <option key={subreddit.id} value={subreddit.id, subreddit.name}>{subreddit.subname} </option>
                 )}
             </select>
             <NavLink className="Links" exact to={"/"}>Home</NavLink>
