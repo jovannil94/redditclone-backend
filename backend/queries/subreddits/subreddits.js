@@ -19,6 +19,26 @@ const getAllSubreddits = async (req, res, next) => {
 }
 
 
+
+
+const getSubredditByName = async (req, res, next) => {
+    try {
+        let subreddit = await db.one(`SELECT * FROM subreddits WHERE subname = '${req.params.subname}'`);
+        res.status(200).json({
+          status: "Success",
+          message: "subbreddit was retrieved by id",
+          payload: subreddit
+        });
+      } catch (err){
+        res.status(400).json({
+            status: "Error",
+            message: "Couldn't get subreddit by id",
+            payload: err
+        })
+        next(err);
+      }
+}
+
 const getSubreddit = async (req, res, next) => {
     try {
         let subreddit = await db.one(`SELECT * FROM subreddits WHERE id = '${req.params.id}'`);
@@ -75,4 +95,4 @@ const deleteSubreddit = async (req, res, next) => {
 
 
 
-module.exports = { getAllSubreddits, getSubreddit, addSubreddit, deleteSubreddit };
+module.exports = { getAllSubreddits, getSubredditByName, getSubreddit, addSubreddit, deleteSubreddit };

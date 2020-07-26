@@ -2,6 +2,7 @@ import React from "react";
 import "../css/PostIndex.css";
 
 const PostIndex = ({ allPost }) => {
+    debugger
     return (
       <div >
             {allPost.map((post) => (

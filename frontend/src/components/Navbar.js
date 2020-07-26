@@ -8,6 +8,7 @@ const NavBar = () => {
     const [subreddits, setSubreddits] = useState([]);
     const history = useHistory();
     const subredditRedirect = (selected) => history.push(`/posts/${selected}`);
+    const homeRedirect = () => history.push(`/`);
     
     const fetchSubreddits = async () => {
         try {
@@ -19,9 +20,12 @@ const NavBar = () => {
     }
 
     const handleChange = (e) => {
-        debugger
         e.preventDefault();
-        subredditRedirect(e.currentTarget.value)
+        if(e.currentTarget.value === "Home") {
+            homeRedirect();
+        } else {
+            subredditRedirect(e.currentTarget.value)
+        }
     }
 
     useEffect(() => {
