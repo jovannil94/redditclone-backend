@@ -14,7 +14,9 @@ VALUES(1, 'PublicFreakout'),
 INSERT INTO posts
       (user_id, posts_id, title, body, image)
 VALUES(1, 1, 'check this out!', 'testing will upload a video here if possible', null),
-      (2, 2, 'thought this was interesting to share', 'upvote please', null);
+      (2, 2, 'thought this was interesting to share', 'upvote please', null),
+      (2, 1, 'more testing', 'test test', null),
+      (1, 2, 'I just want upvotes tbh', 'send me gold', null);
 
 INSERT INTO votes
       (user_id, post_id, count)

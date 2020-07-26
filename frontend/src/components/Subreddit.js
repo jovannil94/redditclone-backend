@@ -11,6 +11,7 @@ const Subreddit = () => {
         try {
             let res = await axios.get(`http://localhost:3001/subreddits/${id}`);
             setGetDetails(res.data.payload);
+            debugger
         } catch (error) {
             console.log(error)
         }
@@ -22,7 +23,7 @@ const Subreddit = () => {
 
     return (
         <div className="subredditContainer">
-            <DisplayPost sub={getDetails}/>
+            {/* <DisplayPost sub={getDetails}/> */}
         </div>
     )
 }

@@ -14,6 +14,7 @@ const DisplayPost = ({sub}) => {
             } else {
                 let res = await axios.get(`http://localhost:3001/posts/${sub.id}`);
                 setAllPost(res.data.payload);
+                debugger
             }
         } catch (error) {
             console.log(error)
