@@ -2,19 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PostIndex from "./PostIndex";
 
-const DisplayPost = () => {
+const DisplayPost = (choosen) => {
     const [allPost, setAllPost] = useState([]);
-
-    const fetchPosts = async (sub = "Home") => {
-        debugger
+    
+    const fetchPosts = async (choosen) => {
         try {
-            if(sub === "Home") {
-                let res = await axios.get(`http://localhost:3001/posts/`);
+            if(Number.isInteger(choosen.choosen) === true) {
+                let res = await axios.get(`http://localhost:3001/posts/${choosen.choosen}`);
                 setAllPost(res.data.payload);
             } else {
-                let res = await axios.get(`http://localhost:3001/posts/${sub.id}`);
+                let res = await axios.get(`http://localhost:3001/posts/`);
                 setAllPost(res.data.payload);
-                debugger
             }
         } catch (error) {
             console.log(error)
@@ -22,8 +20,8 @@ const DisplayPost = () => {
     }
 
     useEffect(() => {
-        fetchPosts();
-    }, [])
+        fetchPosts(choosen);
+    }, [choosen])
 
     return(
         <div className="Feed">

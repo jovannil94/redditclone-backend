@@ -10,8 +10,7 @@ const Subreddit = () => {
     const fetchDetails = async () => {
         try {
             let res = await axios.get(`http://localhost:3001/subreddits/${id}`);
-            setGetDetails(res.data.payload);
-            debugger
+            setGetDetails(res.data.payload.id);
         } catch (error) {
             console.log(error)
         }
@@ -23,7 +22,7 @@ const Subreddit = () => {
 
     return (
         <div className="subredditContainer">
-            {/* <DisplayPost sub={getDetails}/> */}
+            <DisplayPost choosen={getDetails}/>
         </div>
     )
 }
