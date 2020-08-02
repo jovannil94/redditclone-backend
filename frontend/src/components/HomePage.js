@@ -7,7 +7,7 @@ const HomePage = () => {
         <div className="homePageContainer">
             <div className="empty"></div>
             <div className="feed">
-                <DisplayPost page={"Home"}/>
+                <DisplayPost/>
             </div>
             <div className="communitiesAds"></div>
             <div className="empty2"></div>

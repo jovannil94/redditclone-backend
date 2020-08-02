@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PostIndex from "./PostIndex";
 
-const DisplayPost = ({sub}) => {
+const DisplayPost = () => {
     const [allPost, setAllPost] = useState([]);
 
-    const fetchPosts = async (sub) => {
+    const fetchPosts = async (sub = "Home") => {
         debugger
         try {
-            if(sub.subname === "Home") {
+            if(sub === "Home") {
                 let res = await axios.get(`http://localhost:3001/posts/`);
                 setAllPost(res.data.payload);
             } else {
@@ -22,8 +22,8 @@ const DisplayPost = ({sub}) => {
     }
 
     useEffect(() => {
-        fetchPosts(sub);
-    }, [sub])
+        fetchPosts();
+    }, [])
 
     return(
         <div className="Feed">
