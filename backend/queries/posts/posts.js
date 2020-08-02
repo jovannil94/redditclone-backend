@@ -2,7 +2,7 @@ const db = require("../../db/index");
 
 const getPosts = async (req, res, next) => {
     try {
-        let posts = await db.any(`SELECT * FROM posts`);
+        let posts = await db.any(`SELECT posts.id, posts.user_id, posts.sub_id, posts.title, posts.body, posts.image, users.user_name FROM posts LEFT JOIN users ON posts.user_id = users.id`);
         res.status(200).json({
             status: "Success",
             message: "all posts",

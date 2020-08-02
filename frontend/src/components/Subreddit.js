@@ -18,7 +18,7 @@ const Subreddit = () => {
 
     useEffect(() => {
         fetchDetails()
-    }, [])
+    }, [id])
 
     return (
         <div className="subredditContainer">
