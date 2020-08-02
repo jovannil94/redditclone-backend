@@ -30,3 +30,7 @@
 .postUser:hover{
     cursor: pointer;
 }
+
+.postUser{
+    margin-left: 1%;
+}
