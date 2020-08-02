@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import "../css/PostIndex.css";
 
 const PostIndex = ({ allPost }) => {
-    debugger
-
     const printAll = allPost.map((post) => (
                 <div className="postCard" key={post.id}>
                     <div className="postPostedHeader">

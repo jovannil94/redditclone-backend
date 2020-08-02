@@ -24,7 +24,7 @@ CREATE TABLE subreddits(
 CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
     user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
-    posts_id INTEGER REFERENCES subreddits(id) ON DELETE CASCADE,
+    sub_id INTEGER REFERENCES subreddits(id) ON DELETE CASCADE,
     title VARCHAR,
     body VARCHAR,
     image VARCHAR
