@@ -33,6 +33,5 @@ CREATE TABLE posts(
 CREATE TABLE votes(
       id SERIAL PRIMARY KEY,
       user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
-      post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
-      count VARCHAR
+      post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE
 );

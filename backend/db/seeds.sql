@@ -19,6 +19,6 @@ VALUES(1, 1, 'check this out!', 'testing will upload a video here if possible', 
       (1, 2, 'I just want upvotes tbh', 'send me gold', null);
 
 INSERT INTO votes
-      (user_id, post_id, count)
-VALUES(1, 1, 15 ) ,
-      (2, 1, -10);
+      (user_id, post_id)
+VALUES(1, 1) ,
+      (2, 1);
