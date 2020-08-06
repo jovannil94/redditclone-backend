@@ -5,6 +5,7 @@ import LogIn from './components/LogIn';
 import HomePage from './components/HomePage';
 import NavBar from './components/Navbar';
 import Subreddit from  './components/Subreddit';
+import CreatePost from './components/CreatePost';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Switch>
         <Route exact path={"/"} component={HomePage}/>
         <Route exact path={"/login"} component={LogIn}/>
-        <Route exact path={"/posts/:id"} component={Subreddit} />
+        <Route exact path={"/posts/:id"} component={Subreddit}/>
+        <Route exact path={"/submit"} component={CreatePost}/>
       </Switch>
     </div>
   );
