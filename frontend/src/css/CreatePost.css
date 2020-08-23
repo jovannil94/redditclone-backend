@@ -1,0 +1,4 @@
+.createPostContainer {
+    display: flex;
+    flex-direction: column;
+}

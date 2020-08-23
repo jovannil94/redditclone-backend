@@ -14,7 +14,7 @@ function App() {
       <Switch>
         <Route exact path={"/"} component={HomePage}/>
         <Route exact path={"/login"} component={LogIn}/>
-        <Route exact path={"/posts/:id"} component={Subreddit}/>
+        <Route exact path={"/subreddit/:id"} component={Subreddit}/>
         <Route exact path={"/submit"} component={CreatePost}/>
       </Switch>
     </div>

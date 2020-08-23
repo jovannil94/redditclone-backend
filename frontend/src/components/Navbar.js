@@ -39,7 +39,7 @@ const NavBar = () => {
             <select onChange={handleChange}>
                 <option value="Home">Home</option>
                 {subreddits.map((subreddit) => 
-                    <option key={subreddit.id} value={ subreddit.id, subreddit.name }>{subreddit.subname}</option>
+                    <option key={subreddit.id} value={ subreddit.id, subreddit.name }>/r{subreddit.subname}</option>
                 )}
             </select>
             <NavLink className="Links" exact to={"/"}>Home</NavLink>
