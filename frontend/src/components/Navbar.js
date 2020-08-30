@@ -7,7 +7,7 @@ import axios from "axios";
 const NavBar = () => {
     const [subreddits, setSubreddits] = useState([]);
     const history = useHistory();
-    const subredditRedirect = (selected) => history.push(`/posts/${selected}`);
+    const subredditRedirect = (selected) => history.push(`/subreddit/${selected}`);
     const homeRedirect = () => history.push(`/`);
     
     const fetchSubreddits = async () => {
@@ -24,7 +24,8 @@ const NavBar = () => {
         if(e.currentTarget.value === "Home") {
             homeRedirect();
         } else {
-            subredditRedirect(e.currentTarget.value)
+            let sub = e.currentTarget.value.slice(2);
+            subredditRedirect(sub)
         }
     }
 

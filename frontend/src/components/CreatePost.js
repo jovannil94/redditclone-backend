@@ -27,7 +27,8 @@ const CreatePost = () => {
     return(
         <div className="createPostContainer">
             <select required="" onChange={handleChange}>
-                <option disabled selected value="">Choose A Community</option>
+                <option disabled value="">Choose A Community</option>
+                {/* removed selected from option above */}
                 {subreddits.map((subreddit) => 
                     <option key={subreddit.id} value={ subreddit.id, subreddit.name }>/r{subreddit.subname}</option>
                 )}
