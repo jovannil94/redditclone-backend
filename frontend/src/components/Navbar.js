@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import "../css/Navbar.css";
-// import logo from "../images/Reddit-Logo-Horizontal.png";
+import logo from "../images/redditLogo.png";
 import axios from "axios";
 
 const NavBar = () => {
@@ -35,8 +35,8 @@ const NavBar = () => {
 
     return(
         <nav className="Navbar">
-            {/* <img src={logo} className="Logo" alt="" />
-                <SubredditIndex subreddits={subreddits}/> */}
+            <img src={logo} className="Logo" alt="" />
+                {/* <SubredditIndex subreddits={subreddits}/> */}
             <select onChange={handleChange}>
                 <option value="Home">Home</option>
                 {subreddits.map((subreddit) => 
