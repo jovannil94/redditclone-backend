@@ -10,3 +10,7 @@
     width: auto;
     margin-top: -.5em;
 }
+
+.Logo:hover{
+    cursor: pointer;
+}
