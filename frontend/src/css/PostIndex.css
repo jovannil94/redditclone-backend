@@ -1,16 +1,13 @@
-/* Dark Colors {
-    grey: #161617
-}
-*/
-
 .postCard{
     display: flex;
     flex-direction: column;
-    background-color: #1B1B1C;
-    color: white;
-    /* width: 40vw; */
-    border: solid white 1px;
+    color: black;
+    width: 40vw;
+    border: solid black 1px;
     border-radius: 5px;
+    background-color: lightgrey;
+    margin: auto;
+    padding: 20px;
 }
 
 .postPostedHeader{

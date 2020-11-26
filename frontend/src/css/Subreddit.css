@@ -1,0 +1,13 @@
+.subContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.subFeed {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

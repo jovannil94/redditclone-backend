@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS cta_reddit_db;
-CREATE DATABASE cta_reddit_db;
+-- DROP DATABASE IF EXISTS cta_reddit_db;
+-- CREATE DATABASE cta_reddit_db;
 
-\c cta_reddit_db;
+-- \c cta_reddit_db;
 
 DROP TABLE IF EXISTS subreddits;
 DROP TABLE IF EXISTS posts;

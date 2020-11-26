@@ -21,8 +21,11 @@ const Subreddit = () => {
     }, [id])
 
     return (
-        <div className="subredditContainer">
-            <DisplayPost choosen={getDetails}/>
+        <div className="subContainer">
+            <div className="subFeed">
+                <DisplayPost choosen={getDetails}/>
+            </div>
+            
         </div>
     )
 }

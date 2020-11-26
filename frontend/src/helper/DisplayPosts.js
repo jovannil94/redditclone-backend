@@ -24,7 +24,7 @@ const DisplayPost = (choosen) => {
     }, [choosen])
 
     return(
-        <div className="Feed">
+        <div className="postFeed">
             <PostIndex allPost={allPost}/>
         </div>
     )

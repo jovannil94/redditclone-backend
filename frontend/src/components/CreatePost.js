@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useInputs } from "../util/InputHook"; 
 import axios from "axios";
 import "../css/CreatePost.css";
 
 const CreatePost = () => {
     const [subreddits, setSubreddits] = useState([]);
     const [chosenSub, setChosenSub] = useState([]);
+    const titleContext = useInputs("");
+    const bodyContext = useInputs("");
 
     const fetchSubreddits = async () => {
         try {

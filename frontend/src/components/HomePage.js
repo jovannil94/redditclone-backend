@@ -8,14 +8,11 @@ const HomePage = () => {
     const redirectToPost = () => history.push(`/submit`);
 
     return(
-        <div className="homePageContainer">
-            <div className="empty"></div>
-            <div className="feed">
+        <div className="homeContainer">
+            <div className="homeFeed">
                 <input type="text" placeholder="Create A Post" onClick={redirectToPost}/>
                 <DisplayPost choosen={[]}/>
             </div>
-            <div className="communitiesAds"></div>
-            <div className="empty2"></div>
         </div>
     )
 }
