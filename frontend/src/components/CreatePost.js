@@ -31,13 +31,12 @@ const CreatePost = () => {
         <div className="createPostContainer">
             <select required="" onChange={handleChange}>
                 <option disabled value="">Choose A Community</option>
-                {/* removed selected from option above */}
                 {subreddits.map((subreddit) => 
                     <option key={subreddit.id} value={ subreddit.id, subreddit.name }>/r{subreddit.subname}</option>
                 )}
             </select>
-            <input type="text" placeholder="Title"/>
-            <input type="textarea" placeholder="Text(optional)"/>
+            <input type="text" placeholder="Title" {...titleContext}/>
+            <input type="textarea" placeholder="Text(optional)" {...bodyContext}/>
             <input type="submit" value="Post"/>
         </div>
     )

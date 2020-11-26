@@ -39,7 +39,7 @@ const getPostBySub = async (req, res, next) => {
 const addPost = async (req, res, next) => {
     try {
         let user = await db.one(
-            `INSERT INTO posts (user_id, subreddits_id, body) VALUES('${req.body.user_id}', '${req.body.subreddits_id}', '${req.body.title}', '${req.body.body}') RETURNING *`)
+            `INSERT INTO posts (user_id, subreddits_id, title, body) VALUES('${req.body.user_id}', '${req.body.subreddits_id}', '${req.body.title}', '${req.body.body}') RETURNING *`)
         res.status(200).json({
             user,
             status: "Success",
