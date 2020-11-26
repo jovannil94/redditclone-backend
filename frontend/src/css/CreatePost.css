@@ -1,8 +1,19 @@
-.createPostContainer {
+/* .createPostContainer {
     display: flex;
     flex-direction: column;
     color: black;
-    width: 40vw;
+    width: 50vw;
+    border: solid black 1px;
+    border-radius: 5px;
+    margin: auto;
+    padding: 20px;
+    background-color: lightgrey;
+} */
+.createForm {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    width: 50vw;
     border: solid black 1px;
     border-radius: 5px;
     margin: auto;

@@ -23,6 +23,21 @@ const CreatePost = () => {
         setChosenSub(e.currentTarget.value);
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let res = await axios.post("http://localhost:3001/posts/", {
+                user_id: 1,
+                subreddits_id: chosenSub,
+                title: titleContext,
+                body: bodyContext
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         fetchSubreddits()
     }, []);
@@ -35,9 +50,11 @@ const CreatePost = () => {
                     <option key={subreddit.id} value={ subreddit.id, subreddit.name }>/r{subreddit.subname}</option>
                 )}
             </select>
-            <input type="text" placeholder="Title" {...titleContext}/>
-            <input type="textarea" placeholder="Text(optional)" {...bodyContext}/>
-            <input type="submit" value="Post"/>
+            <form className="createForm" onSubmit={handleSubmit}>
+                <input type="text" placeholder="Title" {...titleContext}/>
+                <input type="textarea" placeholder="Text(optional)" {...bodyContext}/>
+                <input type="submit" value="Post"/>
+            </form>
         </div>
     )
 }
