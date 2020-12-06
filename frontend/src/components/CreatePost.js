@@ -51,9 +51,9 @@ const CreatePost = () => {
                 )}
             </select>
             <form className="createForm" onSubmit={handleSubmit}>
-                <input type="text" placeholder="Title" {...titleContext}/>
-                <input type="textarea" placeholder="Text(optional)" {...bodyContext}/>
-                <input type="submit" value="Post"/>
+                <input className="createFormTitle" type="text" placeholder="Title" {...titleContext}/>
+                <input className="createFormBody" type="textarea" placeholder="Text(optional)" {...bodyContext}/>
+                <input className="createFormSubmit" type="submit" value="Post"/>
             </form>
         </div>
     )
