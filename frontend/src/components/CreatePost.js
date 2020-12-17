@@ -32,7 +32,7 @@ const CreatePost = () => {
                 title: titleContext,
                 body: bodyContext
             })
-
+            debugger
         } catch (error) {
             console.log(error)
         }
@@ -44,7 +44,7 @@ const CreatePost = () => {
 
     return(
         <div className="createPostContainer">
-            <select required="" onChange={handleChange}>
+            <select className="createPostSelector" required="" onChange={handleChange}>
                 <option disabled value="">Choose A Community</option>
                 {subreddits.map((subreddit) => 
                     <option key={subreddit.id} value={ subreddit.id, subreddit.name }>/r{subreddit.subname}</option>

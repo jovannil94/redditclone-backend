@@ -1,14 +1,14 @@
-/* .createPostContainer {
+.createPostContainer {
     display: flex;
     flex-direction: column;
-    color: black;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.createPostSelector {
+    height: 8vh;
     width: 50vw;
-    border: solid black 1px;
-    border-radius: 5px;
-    margin: auto;
-    padding: 20px;
-    background-color: lightgrey;
-} */
+}
 
 .createForm {
     display: flex;
