@@ -28,9 +28,9 @@ const CreatePost = () => {
         try {
             let res = await axios.post("http://localhost:3001/posts/", {
                 user_id: 1,
-                subreddits_id: chosenSub,
+                sub_id: chosenSub,
                 title: titleContext.value,
-                body: bodyContext.value
+                context: bodyContext.value
             })
         } catch (error) {
             console.log(error)
