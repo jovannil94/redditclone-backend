@@ -47,7 +47,7 @@ const CreatePost = () => {
             <select className="createPostSelector" required="" onChange={handleChange}>
                 <option disabled value="">Choose A Community</option>
                 {subreddits.map((subreddit) => 
-                    <option key={subreddit.id} value={ subreddit.id, subreddit.name }>/r{subreddit.subname}</option>
+                    <option key={subreddit.id} value={subreddit.id}>/r{subreddit.subname}</option>
                 )}
             </select>
             <form className="createForm" onSubmit={handleSubmit}>

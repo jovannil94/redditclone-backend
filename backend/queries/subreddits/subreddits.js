@@ -18,12 +18,11 @@ const getAllSubreddits = async (req, res, next) => {
     }
 }
 
-
-
-
 const getSubredditByName = async (req, res, next) => {
     try {
-        let subreddit = await db.one(`SELECT * FROM subreddits WHERE subname = '${req.params.subname}'`);
+        let subreddit = await db.one(`SELECT * FROM subreddits WHERE subname=$/subname/`, {
+            subname: req.params.subname
+        });
         res.status(200).json({
           status: "Success",
           message: "subbreddit was retrieved by id",
@@ -41,7 +40,9 @@ const getSubredditByName = async (req, res, next) => {
 
 const getSubreddit = async (req, res, next) => {
     try {
-        let subreddit = await db.one(`SELECT * FROM subreddits WHERE id = '${req.params.id}'`);
+        let subreddit = await db.one(`SELECT * FROM subreddits WHERE id=${sub_id}`, {
+            sub_id:req.params.id
+        });
         res.status(200).json({
           status: "Success",
           message: "subbreddit was retrieved by id",
@@ -60,7 +61,10 @@ const getSubreddit = async (req, res, next) => {
 const addSubreddit = async (req, res, next) => {
     try {
         let subreddit = await db.one(
-            `INSERT INTO subreddits (user_id, subname) VALUES('${req.body.user_id}', '${req.body.subname}') RETURNING *`)
+            `INSERT INTO subreddits (user_id, subname) VALUES('${user_id}', '${subname}', {
+                user_id: id,
+                subname: subname
+            }) RETURNING *`)
         res.status(200).json({
             subreddit,
             status: "Success",
@@ -78,7 +82,7 @@ const addSubreddit = async (req, res, next) => {
 
 const deleteSubreddit = async (req, res, next) => {
     try {
-        await db.none(`DELETE from subreddits WHERE id = ${req.params.id}`);
+        await db.none(`DELETE from subreddits WHERE id = ${sub.id}`);
         res.status(200).json({
           status: "Success",
           message: "Subreddit Has Been Deleted"
