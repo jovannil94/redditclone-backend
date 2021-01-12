@@ -18,6 +18,26 @@ const getPosts = async (req, res, next) => {
     }
 }
 
+const getPostById = async (req, res, next) => {
+    try {
+        let post = await db.one(`SELECT * FROM posts WHERE id=$/post_id/`, {
+            post_id:req.params.id
+        });
+        res.status(200).json({
+          status: "Success",
+          message: "post was retrieved by id",
+          payload: post
+        });
+      } catch (err){
+        res.status(400).json({
+            status: "Error",
+            message: "Couldn't get post by id",
+            payload: err
+        })
+        next(err);
+      }
+}
+
 const getPostBySub = async (req, res, next) => {
     try {
         let posts = await db.any(`SELECT posts.id, posts.user_id, posts.sub_id, posts.title, posts.body, posts.image, users.user_name, subreddits.subname FROM subreddits LEFT JOIN posts ON subreddits.id = posts.sub_id LEFT JOIN users ON posts.user_id = users.id WHERE subreddits.id=$/sub_id/ ORDER BY id DESC`, {
@@ -83,4 +103,4 @@ const deletePost = async (req, res, next) => {
 
 
 
-module.exports = { getPosts, getPostBySub, addPost, deletePost };
+module.exports = { getPosts, getPostById, getPostBySub, addPost, deletePost };

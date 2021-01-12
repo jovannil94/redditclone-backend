@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import NavBar from './components/Navbar';
 import Subreddit from  './components/Subreddit';
 import CreatePost from './components/CreatePost';
+import PostDetails from './helper/PostDetails';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path={"/login"} component={LogIn}/>
         <Route exact path={"/subreddit/:id"} component={Subreddit}/>
         <Route exact path={"/submit"} component={CreatePost}/>
+        <Route exact path={"/post/:id"} component={PostDetails}/>
       </Switch>
     </div>
   );
