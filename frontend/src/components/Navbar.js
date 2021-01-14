@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 const NavBar = () => {
+    const user_id= localStorage.getItem("currentUser");
     const [subreddits, setSubreddits] = useState([]);
     const [display, setDisplay] = useState(false);
     const [search, setSearch] = useState("");

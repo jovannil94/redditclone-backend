@@ -4,14 +4,12 @@ import { useHistory } from "react-router-dom";
 import "../css/PostIndex.css";
 
 const PostIndex = ({ allPost }) => {
-    // const [postId, setPostId] = useState([]);
     const history = useHistory();
     const redirectToPost = (id) => history.push(`/post/${id}`);
 
     const openPost = (e, id) => {
         e.preventDefault();
         redirectToPost(id)
-        // setPostId(id)
     }
 
     const printAll = allPost.map((post) => (
@@ -29,7 +27,6 @@ const PostIndex = ({ allPost }) => {
     ))
 
     useEffect(() => {
-        // printAll(allPost)
     }, [allPost])
 
     return (
