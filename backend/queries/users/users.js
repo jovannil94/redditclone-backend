@@ -21,8 +21,10 @@ const getUsers = async (req, res, next) => {
 const logInUser = async (req, res, next) => {
     try{
         let user = await db.one(
-            `SELECT * FROM users WHERE user_name = '${req.body.user_name}' AND password = '${req.body.password}'`
-            );
+            `SELECT * FROM users WHERE user_name = $/user_name/ AND password = $/password/`, {
+                user_name: req.body.user_name,
+                password: req.body.password
+            });
             res.status(200).json({
                 status: "Success",
                 message: "user logged in",
