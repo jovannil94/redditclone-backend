@@ -1,11 +1,12 @@
--- DROP DATABASE IF EXISTS cta_reddit_db;
--- CREATE DATABASE cta_reddit_db;
+DROP DATABASE IF EXISTS cta_reddit_db;
+CREATE DATABASE cta_reddit_db;
 
--- \c cta_reddit_db;
+\c cta_reddit_db;
 
-DROP TABLE IF EXISTS subreddits;
-DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS subreddits;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -27,7 +28,16 @@ CREATE TABLE posts(
     sub_id INTEGER REFERENCES subreddits(id) ON DELETE CASCADE,
     title VARCHAR,
     body VARCHAR,
-    image VARCHAR
+    image VARCHAR,
+    comments VARCHAR
+);
+
+CREATE TABLE comments(
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+    post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
+    body VARCHAR,
+    comment_date TIMESTAMP
 );
 
 CREATE TABLE votes(
