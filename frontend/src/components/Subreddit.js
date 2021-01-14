@@ -6,6 +6,7 @@ import DisplayPost from "../helper/DisplayPosts";
 const Subreddit = () => {
     const [getDetails, setGetDetails] = useState([]);
     const { id } = useParams();
+    const user_id= localStorage.getItem("currentUser");
     
     const fetchDetails = async () => {
         try {

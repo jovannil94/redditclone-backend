@@ -8,6 +8,7 @@ const CreatePost = () => {
     const [chosenSub, setChosenSub] = useState("");
     const titleContext = useInputs("");
     const bodyContext = useInputs("");
+    const user_id= localStorage.getItem("currentUser");
 
     const fetchSubreddits = async () => {
         try {
@@ -27,7 +28,7 @@ const CreatePost = () => {
         e.preventDefault();
         try {
             let res = await axios.post("http://localhost:3001/posts/", {
-                user_id: 1,
+                user_id: user_id,
                 sub_id: chosenSub,
                 title: titleContext.value,
                 context: bodyContext.value

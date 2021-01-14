@@ -6,6 +6,7 @@ import "../css/HomePage.css";
 const HomePage = () => {
     const history = useHistory();
     const redirectToPost = () => history.push(`/submit`);
+    const user_id= localStorage.getItem("currentUser");
 
     return(
         <div className="homeContainer">

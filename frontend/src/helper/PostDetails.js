@@ -6,6 +6,7 @@ import "../css/PostDetails.css";
 
 const PostDetails = () => {
     const { id } = useParams();
+    const user_id= localStorage.getItem("currentUser");
     const [showPost, setShowPost] = useState([]);
     const [showAllComments, setShowAllComments] = useState([]);
     const commentContext = useInputs("");
@@ -37,7 +38,7 @@ const PostDetails = () => {
         e.preventDefault();
         try {
             let res = await axios.post("http://localhost:3001/comments/", {
-                user_id: 2,
+                user_id: user_id,
                 post_id: id,
                 context: commentContext.value
             })
