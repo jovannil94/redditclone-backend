@@ -3,7 +3,9 @@ const db = require("../../db/index");
 
 const getCommentsByPost = async (req, res, next) => {
     try {
-        let comments = await db.any(`SELECT * FROM comments WHERE post_id=$/post_id/ LEFT JOIN users ON comments.user_id = users.id ORDER BY id DESC`);
+        let comments = await db.any(`SELECT comments.id, comments.body, comments.comment_date, users.user_name FROM comments LEFT JOIN users ON comments.user_id = users.id WHERE comments.post_id=$/post_id/ ORDER BY comments.id`, {
+            post_id: req.params.id
+        });
         res.status(200).json({
             status: "Success",
             message: "all comments",
