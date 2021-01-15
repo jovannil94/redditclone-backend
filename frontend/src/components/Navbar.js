@@ -13,6 +13,7 @@ const NavBar = () => {
     const history = useHistory();
     const subredditRedirect = (selected) => history.push(`/subreddit/${selected}`);
     const homeRedirect = () => history.push(`/`);
+    const logInRedirect = () => history.push(`/login`);
     
     const fetchSubreddits = async () => {
         try {
@@ -47,6 +48,18 @@ const NavBar = () => {
         setDisplay(false);
     }
 
+    const signOut = () => {
+        localStorage.clear();
+        window.location.href = "./"
+        // window.location.reload()
+        //fix signout to always redirect to home!
+    }
+
+    const logIn = () => {
+        localStorage.clear();
+        logInRedirect();
+    }
+
     useEffect(() => {
         fetchSubreddits()
     }, []);
@@ -54,7 +67,6 @@ const NavBar = () => {
     return(
         <nav className="Navbar">
             <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
-                {/* <SubredditIndex subreddits={subreddits}/> */}
             <select className="NavbarSelect" onChange={handleChange}>
                 <option value="Home">Home</option>
                 {subreddits.map((subreddit) => 
@@ -76,8 +88,11 @@ const NavBar = () => {
                     })}
                 </div>
             )}
-            <NavLink className="Links" exact to={"/"}>Home</NavLink>
-            <NavLink className="Links" to={"/login"}>Log In</NavLink>
+
+            { user_id > 0 ? 
+                <button onClick={signOut}>Sign Out</button> :
+                <button onClick={logIn}>Log In</button>
+                }
         </nav>
     )
 }

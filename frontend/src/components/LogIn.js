@@ -1,6 +1,7 @@
 import React from "react";
 import { useInputs } from "../util/InputHook";
-import axios from "axios"
+import axios from "axios";
+import "../css/LogIn.css";
 
 const LogIn = () => {
     localStorage.clear();
