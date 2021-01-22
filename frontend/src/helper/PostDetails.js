@@ -15,7 +15,9 @@ const PostDetails = () => {
     const fetchPost = async () => {
         try {
             let post = await axios.get(`http://localhost:3001/posts/post/${id}`);
-            let postVotes = await axios.get(`http://localhost:3001/votes/post/${id}`);
+            let postVotes = await axios.post(`http://localhost:3001/votes/count`, {
+                post_id: `${id}`
+            });
             let comments = await axios.get(`http://localhost:3001/comments/${id}`);
             setShowPost(post.data.payload);
             setShowPostVotes(postVotes.data.payload);
@@ -28,8 +30,8 @@ const PostDetails = () => {
     const printComments = showAllComments.map((comment) => (
         <div className="commentCard" key={comment.id}>
             <div className="commentHeader">
-                <p className="commentUser"> {comment.user_name}</p>
-                <p className="commentDate"> {comment.comment_date}</p>
+                <p className="commentUser">{comment.user_name}</p>
+                <p className="commentDate">{comment.comment_date}</p>
             </div>
             <div className="commentDetails">
                 <p>{comment.body}</p>

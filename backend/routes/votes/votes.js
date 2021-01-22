@@ -2,7 +2,7 @@ const votes = require('express').Router();
 
 const { getVotes, addVote, deleteVote, updateVote } = require('../../queries/votes/votes');
 
-votes.get("/count", getVotes);
+votes.post("/count", getVotes);
 
 votes.post("/add", addVote);
 
