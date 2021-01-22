@@ -4,9 +4,9 @@ const { getVotesbyPost, getVotesbyComment, addPostVote, deletePostVote, updateVo
 
 votes.get("/post/:post_id", getVotesbyPost);
 
-votes.post("post/:id", addPostVote);
+votes.post("/post", addPostVote);
 
-votes.delete("post/:id", deletePostVote);
+votes.delete("/post", deletePostVote);
 
 votes.get("/comment/:comment_id", getVotesbyComment);
 

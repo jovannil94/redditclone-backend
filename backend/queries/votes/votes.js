@@ -88,8 +88,7 @@ const addPostVote = async (req, res, next) => {
     try {
         await db.none(
             `INSERT INTO votes (user_id, post_id, comment_id, vote_type)
-            VALUES($/user_id/, $/post_id/, $/comment_id/, $/vote_type/)
-            RETURNING *`, {
+            VALUES($/user_id/, $/post_id/, $/comment_id/, $/vote_type/)`, {
                user_id: req.body.user_id,
                post_id: req.body.post_id,
                comment_id: req.body.comment_id,
@@ -98,7 +97,7 @@ const addPostVote = async (req, res, next) => {
         res.status(200).json({
             status: "Success",
             message: "Added vote",
-            payload: `Vote added by ${req.body.user_id} ${req.body.vote_type}`
+            payload: `${req.body.vote_type}vote added to post${req.body.post_id}`
         })
     } catch (err){
         res.status(400).json({
@@ -113,13 +112,13 @@ const addPostVote = async (req, res, next) => {
 const deletePostVote = async (req, res, next) => {
     try {
         await db.none(`DELETE from votes WHERE user_id = $/user_id/ AND post_id = $/post_id/`, {
-            user_id: req.params.user_id,
-            post_id: req.params.post_id
+            user_id: req.body.user_id,
+            post_id: req.body.post_id
         });
         res.status(200).json({
           status: "Success",
           message: "Post Has Been Deleted",
-          payload: `Vote for post ${req.params.post_id} was removed`
+          payload: `Vote for post ${req.body.post_id} was removed`
         });
       } catch (err){
         res.status(400).json({
