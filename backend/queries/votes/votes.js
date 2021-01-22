@@ -87,7 +87,14 @@ const getVotesbyComment = async (req, res, next) => {
 const addVote = async (req, res, next) => {
     try {
         let vote = await db.none(
-            `INSERT INTO votes (user_id, post_id) VALUES('${req.body.user_id}', '${req.body.post_id}') RETURNING *`)
+            `INSERT INTO votes (user_id, post_id, comment_id, vote_type)
+            VALUES($/user_id/, $/post_id/, $/comment_id/, $/vote_type/)
+            RETURNING *`, {
+               user_id: req.body.user_id,
+               post_id: req.body.post_id,
+               comment_id: req.body.comment_id,
+               vote_type: req.body.vote_type,
+           })
         res.status(200).json({
             status: "Success",
             message: "Added vote",
@@ -105,7 +112,10 @@ const addVote = async (req, res, next) => {
 
 const deleteVote = async (req, res, next) => {
     try {
-        await db.none(`DELETE from votes WHERE user_id = ${req.params.user_id} AND post_id = ${req.params.post_id}`);
+        await db.none(`DELETE from votes WHERE user_id = $/user_id/ AND post_id = $/post_id/`, {
+            user_id: req.params.user_id,
+            post_id: req.params.post_id
+        });
         res.status(200).json({
           status: "Success",
           message: "Post Has Been Deleted"
@@ -120,6 +130,50 @@ const deleteVote = async (req, res, next) => {
       }
 }
 
+const updateVoteUp = async (req, res, next) => {
+    try {
+        await db.none(`
+        UPDATE votes
+        SET vote_type = 'up' 
+        WHERE comment_id=$/comment_id/`, {
+            comment_id: req.body.comment_id
+        });
+        res.status(200).json({
+            status: "Success",
+            message: "Vote Has Been updated to upvote"
+          });
+    } catch (error) {
+        res.status(400).json({
+            status: "Error",
+            message: "Vote not updated",
+            payload: err
+        })
+        next(err);
+    }
+}
+
+const updateVoteDown = async (req, res, next) => {
+    try {
+        await db.none(`
+        UPDATE votes
+        SET vote_type = 'down' 
+        WHERE comment_id=$/comment_id/`, {
+            comment_id: req.body.comment_id
+        });
+        res.status(200).json({
+            status: "Success",
+            message: "Vote Has Been updated to downvote"
+          });
+    } catch (error) {
+        res.status(400).json({
+            status: "Error",
+            message: "Vote not updated",
+            payload: err
+        })
+        next(err);
+    }
+}
 
 
-module.exports = { getVotesbyPost, getVotesbyComment, addVote, deleteVote };
+
+module.exports = { getVotesbyPost, getVotesbyComment, addVote, deleteVote, updateVoteUp, updateVoteDown };

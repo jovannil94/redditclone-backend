@@ -1,13 +1,17 @@
 const votes = require('express').Router();
 
-const { getVotesbyPost, getVotesbyComment, addVote, deleteVote } = require('../../queries/votes/votes');
+const { getVotesbyPost, getVotesbyComment, addVote, deleteVote, updateVoteUp, updateVoteDown } = require('../../queries/votes/votes');
 
-votes.get("/post/:post_id", getVotesbyPost);
+votes.get("/post/:id", getVotesbyPost);
 
-votes.get("/comment/:comment_id", getVotesbyComment);
+votes.get("/comment/:id", getVotesbyComment);
 
-votes.post("/:post_id", addVote);
+votes.post("/:id", addVote);
 
-votes.delete("/:post_id", deleteVote);
+votes.delete("/:id", deleteVote);
+
+votes.patch("/upvote/:id", updateVoteUp);
+
+votes.patch("/downvote/:id", updateVoteDown);
 
 module.exports = votes;
