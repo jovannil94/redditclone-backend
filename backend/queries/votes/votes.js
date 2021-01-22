@@ -84,9 +84,9 @@ const getVotesbyComment = async (req, res, next) => {
     }
 }
 
-const addVote = async (req, res, next) => {
+const addPostVote = async (req, res, next) => {
     try {
-        let vote = await db.none(
+        await db.none(
             `INSERT INTO votes (user_id, post_id, comment_id, vote_type)
             VALUES($/user_id/, $/post_id/, $/comment_id/, $/vote_type/)
             RETURNING *`, {
@@ -98,7 +98,7 @@ const addVote = async (req, res, next) => {
         res.status(200).json({
             status: "Success",
             message: "Added vote",
-            payload: vote
+            payload: `Vote added by ${req.body.user_id} ${req.body.vote_type}`
         })
     } catch (err){
         res.status(400).json({
@@ -110,7 +110,7 @@ const addVote = async (req, res, next) => {
     }
 }
 
-const deleteVote = async (req, res, next) => {
+const deletePostVote = async (req, res, next) => {
     try {
         await db.none(`DELETE from votes WHERE user_id = $/user_id/ AND post_id = $/post_id/`, {
             user_id: req.params.user_id,
@@ -118,7 +118,8 @@ const deleteVote = async (req, res, next) => {
         });
         res.status(200).json({
           status: "Success",
-          message: "Post Has Been Deleted"
+          message: "Post Has Been Deleted",
+          payload: `Vote for post ${req.params.post_id} was removed`
         });
       } catch (err){
         res.status(400).json({
@@ -130,19 +131,20 @@ const deleteVote = async (req, res, next) => {
       }
 }
 
-const updateVoteUp = async (req, res, next) => {
+const updateVoteUpComment = async (req, res, next) => {
     try {
         await db.none(`
         UPDATE votes
         SET vote_type = 'up' 
         WHERE comment_id=$/comment_id/`, {
-            comment_id: req.body.comment_id
+            comment_id: req.params.comment_id
         });
         res.status(200).json({
             status: "Success",
-            message: "Vote Has Been updated to upvote"
+            message: "Vote Has Been updated to upvote",
+            payload: `comment ${req.params.comment_id} was updated to upvote`
           });
-    } catch (error) {
+    } catch (err) {
         res.status(400).json({
             status: "Error",
             message: "Vote not updated",
@@ -152,19 +154,20 @@ const updateVoteUp = async (req, res, next) => {
     }
 }
 
-const updateVoteDown = async (req, res, next) => {
+const updateVoteDownComment = async (req, res, next) => {
     try {
         await db.none(`
         UPDATE votes
         SET vote_type = 'down' 
         WHERE comment_id=$/comment_id/`, {
-            comment_id: req.body.comment_id
+            comment_id: req.params.comment_id
         });
         res.status(200).json({
             status: "Success",
-            message: "Vote Has Been updated to downvote"
+            message: "Vote Has Been updated to downvote",
+            payload: `comment ${req.params.comment_id} was updated to downvote`
           });
-    } catch (error) {
+    } catch (err) {
         res.status(400).json({
             status: "Error",
             message: "Vote not updated",
@@ -176,4 +179,4 @@ const updateVoteDown = async (req, res, next) => {
 
 
 
-module.exports = { getVotesbyPost, getVotesbyComment, addVote, deleteVote, updateVoteUp, updateVoteDown };
+module.exports = { getVotesbyPost, getVotesbyComment, addPostVote, deletePostVote, updateVoteUpComment, updateVoteDownComment };
