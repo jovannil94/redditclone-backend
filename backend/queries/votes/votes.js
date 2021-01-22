@@ -2,16 +2,77 @@ const db = require("../../db/index");
 
 const getVotesbyPost = async (req, res, next) => {
     try {
-        let allUpVotes = await db.any(`SELECT count(vote_type) FROM votes WHERE post_id=$/post_id/ GROUP BY vote_type HAVING vote_type='up'`, {
-            post_id:req.params.id
+        let allUpVotes = await db.any(`
+        SELECT count(vote_type) 
+        FROM votes 
+        WHERE post_id=$/post_id/ 
+        GROUP BY vote_type 
+        HAVING vote_type='up'`, {
+            post_id:req.params.post_id
         });
         let allDownVotes = await db.any(`SELECT count(vote_type) FROM votes WHERE post_id=$/post_id/ GROUP BY vote_type HAVING vote_type='down'`, {
-            post_id:req.params.id
+            post_id:req.params.post_id
         });
+        let upCountTotal
+        let downCountTotal
+        if(allUpVotes.length === 0) {
+            upCountTotal = 0
+        } else {
+            upCountTotal = allUpVotes[0].count
+        }
+
+        if(allDownVotes.length === 0) {
+            downCountTotal = 0
+        } else {
+            downCountTotal = allDownVotes[0].count
+        }
+        let voteCount = (upCountTotal - downCountTotal)
         res.status(200).json({
             status: "Success",
             message: "all votes for post",
-            payload: {allUpVotes, allDownVotes}
+            payload: voteCount
+        });
+    } catch (err){
+        res.status(400).json({
+            status: "Error",
+            message: "Couldn't get all votes",
+            payload: err
+        })
+        next(err)
+    }
+}
+
+const getVotesbyComment = async (req, res, next) => {
+    try {
+        let allUpVotes = await db.any(`
+        SELECT count(vote_type) 
+        FROM votes 
+        WHERE comment_id=$/comment_id/ 
+        GROUP BY vote_type 
+        HAVING vote_type='up'`, {
+            comment_id:req.params.comment_id
+        });
+        let allDownVotes = await db.any(`SELECT count(vote_type) FROM votes WHERE comment_id=$/comment_id/ GROUP BY vote_type HAVING vote_type='down'`, {
+            comment_id:req.params.comment_id
+        });
+        let upCountTotal
+        let downCountTotal
+        if(allUpVotes.length === 0) {
+            upCountTotal = 0
+        } else {
+            upCountTotal = allUpVotes[0].count
+        }
+
+        if(allDownVotes.length === 0) {
+            downCountTotal = 0
+        } else {
+            downCountTotal = allDownVotes[0].count
+        }
+        let voteCount = (upCountTotal - downCountTotal)
+        res.status(200).json({
+            status: "Success",
+            message: "all votes for comment",
+            payload: voteCount
         });
     } catch (err){
         res.status(400).json({
@@ -61,4 +122,4 @@ const deleteVote = async (req, res, next) => {
 
 
 
-module.exports = { getVotesbyPost, addVote, deleteVote };
+module.exports = { getVotesbyPost, getVotesbyComment, addVote, deleteVote };

@@ -1,6 +1,7 @@
 .postCard{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
     text-align: left;
     color: black;
     width: 80vw;
@@ -11,12 +12,17 @@
     padding: 20px;
 }
 
-.postPostedHeader{
-    display: flex;
-    flex-direction: row;
+.postCount{
+    width: 5%
 }
 
-.postDetails{
+.postContent {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+}
+
+.postHolder {
     display: flex;
     flex-direction: column;
 }

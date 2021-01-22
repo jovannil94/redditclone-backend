@@ -8,14 +8,17 @@ const PostDetails = () => {
     const { id } = useParams();
     const user_id= localStorage.getItem("currentUser");
     const [showPost, setShowPost] = useState([]);
+    const [showPostVotes, setShowPostVotes] = useState([]);
     const [showAllComments, setShowAllComments] = useState([]);
     const commentContext = useInputs("");
     
     const fetchPost = async () => {
         try {
             let post = await axios.get(`http://localhost:3001/posts/post/${id}`);
+            let postVotes = await axios.get(`http://localhost:3001/votes/post/${id}`);
             let comments = await axios.get(`http://localhost:3001/comments/${id}`);
             setShowPost(post.data.payload);
+            setShowPostVotes(postVotes.data.payload);
             setShowAllComments(comments.data.payload);
         } catch (error) {
             console.log(error)
@@ -54,16 +57,19 @@ const PostDetails = () => {
 
     return(
         <div className="postCard">
-            <div className="postHolder">
-                <h2 className="postPostedHeader">{showPost.title}</h2>
-                <p className="postDetails">{showPost.body}</p>
-            </div>
-            <form className="postForm" onSubmit={handleSubmit}>
-                <textarea className="createFormBody" required placeholder="What are your thoughts?" {...commentContext}/>
-                <input className="createFormSubmit" type="submit" value="Post"/>
-            </form>
-            <div className="postComments">
-                {printComments}
+            <p className="postCount">{showPostVotes}</p>
+            <div className="postContent">
+                <div className="postHolder">
+                    <h2 className="postPostedHeader">{showPost.title}</h2>
+                    <p className="postDetails">{showPost.body}</p>
+                </div>
+                <form className="postForm" onSubmit={handleSubmit}>
+                    <textarea className="createFormBody" required placeholder="What are your thoughts?" {...commentContext}/>
+                    <input className="createFormSubmit" type="submit" value="Post"/>
+                </form>
+                <div className="postComments">
+                    {printComments}
+                </div>
             </div>
         </div>
     )
