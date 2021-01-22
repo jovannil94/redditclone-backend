@@ -43,5 +43,7 @@ CREATE TABLE comments(
 CREATE TABLE votes(
       id SERIAL PRIMARY KEY,
       user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
-      post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE
+      post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
+      comment_id INTEGER REFERENCES comments(id) ON DELETE CASCADE,
+      vote_type VARCHAR
 );

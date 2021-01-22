@@ -59,7 +59,7 @@ const PostDetails = () => {
                 <p className="postDetails">{showPost.body}</p>
             </div>
             <form className="postForm" onSubmit={handleSubmit}>
-                <input className="createFormBody" required type="textarea" placeholder="What are your thoughts?" {...commentContext}/>
+                <textarea className="createFormBody" required placeholder="What are your thoughts?" {...commentContext}/>
                 <input className="createFormSubmit" type="submit" value="Post"/>
             </form>
             <div className="postComments">

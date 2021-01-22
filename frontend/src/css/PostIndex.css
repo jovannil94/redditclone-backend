@@ -32,3 +32,7 @@
 .postUser{
     margin-left: 1%;
 }
+
+.postCard:hover{
+    cursor: pointer;
+}

@@ -1,21 +1,25 @@
 const db = require("../../db/index");
 
-const getVotes = async (req, res, next) => {
+const getVotesbyPost = async (req, res, next) => {
     try {
-        let countVotes = await db.any(`SELECT COUNT(id) FROM votes WHERE post_id=${req.params.post_id}`);
-        let user = await db.any(`SELECT user_id, user_name FROM users JOIN votes ON users.id = votes.user_id WHERE post_id = ${req.params.post_id}`);
+        let allUpVotes = await db.any(`SELECT count(vote_type) FROM votes WHERE post_id=$/post_id/ GROUP BY vote_type HAVING vote_type='up'`, {
+            post_id:req.params.id
+        });
+        let allDownVotes = await db.any(`SELECT count(vote_type) FROM votes WHERE post_id=$/post_id/ GROUP BY vote_type HAVING vote_type='down'`, {
+            post_id:req.params.id
+        });
         res.status(200).json({
             status: "Success",
-            message: "all votes",
-            payload: {countVotes, user}
-        })
+            message: "all votes for post",
+            payload: {allUpVotes, allDownVotes}
+        });
     } catch (err){
         res.status(400).json({
             status: "Error",
             message: "Couldn't get all votes",
             payload: err
         })
-        next()
+        next(err)
     }
 }
 
@@ -57,4 +61,4 @@ const deleteVote = async (req, res, next) => {
 
 
 
-module.exports = { getVotes, addVote, deleteVote };
+module.exports = { getVotesbyPost, addVote, deleteVote };

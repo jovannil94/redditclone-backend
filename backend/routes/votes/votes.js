@@ -1,8 +1,8 @@
 const votes = require('express').Router();
 
-const { getVotes, addVote, deleteVote } = require('../../queries/votes/votes');
+const { getVotesbyPost, addVote, deleteVote } = require('../../queries/votes/votes');
 
-votes.get("/:post_id", getVotes);
+votes.get("/post/:post_id", getVotesbyPost);
 
 votes.post("/:post_id", addVote);
 
