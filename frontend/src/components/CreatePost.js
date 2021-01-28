@@ -27,7 +27,7 @@ const CreatePost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.post("http://localhost:3001/posts/", {
+            await axios.post("http://localhost:3001/posts/", {
                 user_id: user_id,
                 sub_id: chosenSub,
                 title: titleContext.value,

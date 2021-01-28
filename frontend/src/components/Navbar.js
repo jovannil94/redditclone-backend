@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../css/Navbar.css";
 import logo from "../images/redditLogo.png";
 import axios from "axios";
@@ -38,10 +38,10 @@ const NavBar = () => {
         }
     }
 
-    const handleSearchClick = (e) => {
-        e.preventDefault();
-        subredditRedirect(e.currentTarget.textContent)
-    }
+    // const handleSearchClick = (e) => {
+    //     e.preventDefault();
+    //     subredditRedirect(e.currentTarget.textContent)
+    // }
 
     const setSubFilter = subreddit => {
         setSearch(subreddit);

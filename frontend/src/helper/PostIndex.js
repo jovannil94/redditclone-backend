@@ -5,7 +5,6 @@ import "../css/PostIndex.css";
 const PostIndex = ({ allPost }) => {
     const history = useHistory();
     const redirectToPost = (id) => history.push(`/post/${id}`);
-
     const openPost = (e, id) => {
         e.preventDefault();
         redirectToPost(id)
