@@ -44,6 +44,32 @@ const getVotes = async (req, res, next) => {
     }
 }
 
+const checkVote = async (req, res, next) => {
+    try {
+        let didVote = await db.any(`
+        SELECT vote_type FROM votes
+        WHERE user_id = $/user_id/
+        AND (comment_id = $/comment_id/ 
+        OR post_id = $/post_id/)`, {
+            post_id: req.body.post_id,
+            comment_id: req.body.comment_id,
+            user_id: req.body.user_id
+        });
+        res.status(200).json({
+            status: "Success",
+            message: "User did vote",
+            payload: didVote
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: "Error",
+            message: "User did not vote",
+            payload: err
+        })
+        next()
+    }
+}
+
 const addVote = async (req, res, next) => {
     try {
         await db.none(
@@ -118,4 +144,4 @@ const updateVote = async (req, res, next) => {
 
 
 
-module.exports = { getVotes, addVote, deleteVote, updateVote };
+module.exports = { getVotes, checkVote, addVote, deleteVote, updateVote };

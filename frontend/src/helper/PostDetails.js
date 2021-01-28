@@ -42,7 +42,7 @@ const PostDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.post("http://localhost:3001/comments/", {
+            await axios.post("http://localhost:3001/comments/", {
                 user_id: user_id,
                 post_id: id,
                 context: commentContext.value
@@ -53,13 +53,51 @@ const PostDetails = () => {
         }
     }
 
+    const handlePostVote = async (e) => {
+        e.preventDefault();
+        let type = e.target.value
+        try {
+            let didVote = await axios.post("http://localhost:3001/votes/check",{
+                user_id: user_id,
+                post_id: id
+            })
+            if (didVote.data.payload.length === 0){
+                    await axios.post("http://localhost:3001/votes/add",{
+                    user_id: user_id,
+                    post_id: id,
+                    vote_type: type
+                });
+            } else if (didVote.data.payload[0].vote_type === type) {
+                await axios.delete("http://localhost:3001/votes/delete", {
+                    data: {
+                        user_id: user_id,
+                        post_id: id 
+                    }
+                });
+            } else if (didVote.data.payload[0].vote_type !== type) {
+                await axios.patch("http://localhost:3001/votes/changevote", {
+                    user_id: user_id,
+                    post_id: id,
+                    vote_type: type
+                });
+            }
+            fetchPost();
+        } catch (error) {
+            console.log(error) 
+        }
+    }
+
     useEffect(() => {
         fetchPost();
     }, [id])
 
     return(
         <div className="postCard">
+        <div className="postVotes">
+            <button className="postUpVote" value="up" onClick={handlePostVote}/>
             <p className="postCount">{showPostVotes}</p>
+            <button className="postDownVote" value="down" onClick={handlePostVote}/>
+        </div>
             <div className="postContent">
                 <div className="postHolder">
                     <h2 className="postPostedHeader">{showPost.title}</h2>

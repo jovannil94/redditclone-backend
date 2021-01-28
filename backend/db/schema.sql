@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS subreddits;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    id VARCHAR UNIQUE NOT NULL PRIMARY KEY,
+    id INTEGER UNIQUE NOT NULL PRIMARY KEY,
     user_name VARCHAR,
     email VARCHAR UNIQUE,
     password VARCHAR
@@ -18,13 +18,13 @@ CREATE TABLE users (
 
 CREATE TABLE subreddits(
     id SERIAL PRIMARY KEY,
-    user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     subname VARCHAR
 );
 
 CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
-    user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     sub_id INTEGER REFERENCES subreddits(id) ON DELETE CASCADE,
     title VARCHAR,
     body VARCHAR,
@@ -34,7 +34,7 @@ CREATE TABLE posts(
 
 CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
-    user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
     body VARCHAR,
     comment_date TIMESTAMP
@@ -42,7 +42,7 @@ CREATE TABLE comments(
 
 CREATE TABLE votes(
       id SERIAL PRIMARY KEY,
-      user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
       post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
       comment_id INTEGER REFERENCES comments(id) ON DELETE CASCADE,
       vote_type VARCHAR
