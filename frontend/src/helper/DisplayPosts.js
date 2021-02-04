@@ -12,7 +12,6 @@ const DisplayPost = (choosen) => {
                 setAllPost(res.data.payload);
             } else {
                 let res = await axios.get(`http://localhost:3001/posts/`);
-                debugger
                 setAllPost(res.data.payload);
             }
         } catch (error) {

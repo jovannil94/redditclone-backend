@@ -1,35 +1,42 @@
-import React from "react";
-import { useInputs } from "../util/InputHook";
-import axios from "axios";
+import React, { useEffect } from "react";
 import "../css/LogIn.css";
 
-const LogIn = () => {
-    localStorage.clear();
-    const userName = useInputs("")
-    const password = useInputs("")
+const LogIn = (props) => {
+    const { user, email, setEmail, password, setPassword, handleLogIn, handleSignUp, userExist, setUserExist, emailError, passwordError } = props;
 
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-        try{
-            let res = await axios.post("http://localhost:3001/users/login", {
-                user_name: userName.value,
-                password: password.value
-            })
-            localStorage.setItem("currentUser", res.data.payload.id)
-             window.location.href = "./"
-        }catch(err){
-            console.log(err)
+    useEffect(() => {
+        if(user) {
+            window.location.href = "./"
         }
-    }
-
-    return(
-        <div className="logInPage">
-            <form className="logInDetails" onSubmit={handleSubmit}>
-                <input type="text" placeholder="Username" required {...userName}/>
-                <input type="password" placeholder="Password" required {...password}/>
-                <input type="submit" className="submit" placeholder="LOG IN"/>
-            </form>
+    }, [user])
+    return (
+        <div>
+            <label>Username</label>
+            <input type="text" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <p>{emailError}</p>
+            <label>Password</label>
+            <input type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <p>{passwordError}</p>
+            <div>
+                {!userExist ?
+                <div>
+                    <button onClick={handleLogIn}>Login</button>
+                    <p>
+                        Don't have an account?
+                        <span onClick={() => setUserExist(!userExist)}>Sign Up</span>
+                    </p>
+                </div>
+                : 
+                <div>
+                    <button onClick={handleSignUp}>Sign Up</button>
+                    <p>
+                        Have an account?
+                        <span onClick={() => setUserExist(!userExist)}>Login</span>
+                    </p>
+                </div>}
+            </div>
         </div>
+
     )
 }
 

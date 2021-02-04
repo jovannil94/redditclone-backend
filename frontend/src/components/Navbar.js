@@ -3,17 +3,25 @@ import { useHistory } from "react-router-dom";
 import "../css/Navbar.css";
 import logo from "../images/redditLogo.png";
 import axios from "axios";
+import fire from "./../Fire";
 
 
-const NavBar = () => {
-    const user_id= localStorage.getItem("currentUser");
+const NavBar = (user) => {
+    let currentUser = user.user
+    console.log(currentUser)
     const [subreddits, setSubreddits] = useState([]);
     const [display, setDisplay] = useState(false);
     const [search, setSearch] = useState("");
     const history = useHistory();
-    const subredditRedirect = (selected) => history.push(`/subreddit/${selected}`);
     const homeRedirect = () => history.push(`/`);
     const logInRedirect = () => history.push(`/login`);
+
+    const subredditRedirect = (selected, owner) => {
+        history.push({
+            pathname: `/subreddit/${selected}`,
+            state: { owner: owner }
+        });
+    }
     
     const fetchSubreddits = async () => {
         try {
@@ -28,13 +36,14 @@ const NavBar = () => {
         homeRedirect()
     }
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         e.preventDefault();
         if(e.currentTarget.value === "Home") {
             homeRedirect();
         } else {
             let sub = e.currentTarget.value.slice(2);
-            subredditRedirect(sub)
+            let res = await axios.get(`http://localhost:3001/subreddits/${sub}`);
+            subredditRedirect(sub, res.data.payload.user_id)
         }
     }
 
@@ -49,14 +58,11 @@ const NavBar = () => {
     }
 
     const signOut = () => {
-        localStorage.clear();
+        fire.auth().signOut();
         window.location.href = "./"
-        // window.location.reload()
-        //fix signout to always redirect to home!
     }
 
     const logIn = () => {
-        localStorage.clear();
         logInRedirect();
     }
 
@@ -89,9 +95,9 @@ const NavBar = () => {
                 </div>
             )}
 
-            { user_id > 0 ? 
+            { currentUser ? 
                 <button onClick={signOut}>Sign Out</button> :
-                <button onClick={logIn}>Log In</button>
+                <button onClick={logIn}>Login</button>
                 }
         </nav>
     )
