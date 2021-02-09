@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import "../css/Navbar.css";
 import logo from "../images/redditLogo.png";
 import axios from "axios";
 import fire from "./../Fire";
+import { UserContext } from "../provider/UserProvider";
 
 
-const NavBar = (user) => {
-    let currentUser = user.user
-    console.log(currentUser)
+const NavBar = () => {
+    const { user } = useContext(UserContext);
+    console.log(user)
     const [subreddits, setSubreddits] = useState([]);
     const [display, setDisplay] = useState(false);
     const [search, setSearch] = useState("");
@@ -95,7 +96,7 @@ const NavBar = (user) => {
                 </div>
             )}
 
-            { currentUser ? 
+            { user ? 
                 <button onClick={signOut}>Sign Out</button> :
                 <button onClick={logIn}>Login</button>
                 }

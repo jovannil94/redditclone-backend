@@ -8,6 +8,8 @@ import Subreddit from  './components/Subreddit';
 import CreatePost from './components/CreatePost';
 import PostDetails from './helper/PostDetails';
 import fire from "./Fire";
+import UserProvider from './provider/UserProvider';
+
 
 function App() {
     const [user, setUser] = useState("");
@@ -16,7 +18,6 @@ function App() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [userExist, setUserExist] = useState(false);
-    // console.log(user)
 
     const clearInputs = () => {
         setEmail("");
@@ -52,6 +53,12 @@ function App() {
         fire
           .auth()
           .createUserWithEmailAndPassword(email, password)
+          .then((res) => {
+            const user = firebase.auth().currentUser;
+            return user.updateProfile({
+              displayName: newUser.name
+            })
+          })
           .catch((error) => {
             switch(error.code){
                 case "auth/email-already-in-use":
@@ -86,34 +93,36 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar user={user} handleLogOut={handleLogOut}/>
-      <Switch>
-        <Route exact path={"/"}
-          render={() =>
-            <HomePage 
-            user={user}
+      <UserProvider>
+        <NavBar user={user}/>
+        <Switch>
+          <Route exact path={"/"}
+            render={() =>
+              <HomePage 
+              user={user}
+              />}
+          />
+          <Route exact path={"/login"}
+            render={() => 
+            <LogIn
+              user={user}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              handleLogIn={handleLogIn}
+              handleSignUp={handleSignUp}
+              userExist={userExist}
+              setUserExist={setUserExist}
+              emailError={emailError}
+              passwordError={passwordError}
             />}
-        />
-        <Route exact path={"/login"}
-          render={() => 
-          <LogIn
-            user={user}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            handleLogIn={handleLogIn}
-            handleSignUp={handleSignUp}
-            userExist={userExist}
-            setUserExist={setUserExist}
-            emailError={emailError}
-            passwordError={passwordError}
-          />}
-        />
-        <Route exact path={"/subreddit/:id"} component={Subreddit}/>
-        <Route exact path={"/submit"} component={CreatePost}/>
-        <Route exact path={"/post/:id"} component={PostDetails}/>
-      </Switch>
+          />
+          <Route exact path={"/subreddit/:id"} component={Subreddit}/>
+          <Route exact path={"/submit"} component={CreatePost}/>
+          <Route exact path={"/post/:id"} component={PostDetails}/>
+        </Switch>
+      </UserProvider>
     </div>
   );
 }
