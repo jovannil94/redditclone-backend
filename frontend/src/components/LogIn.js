@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../css/LogIn.css";
 
 const LogIn = (props) => {
-    const { user, email, setEmail, password, setPassword, handleLogIn, handleSignUp, userExist, setUserExist, emailError, passwordError } = props;
+    const { user, email, setEmail, password, setPassword, userName, setUserName, handleLogIn, handleSignUp, userExist, setUserExist, emailError, passwordError, userNameError } = props;
 
     useEffect(() => {
         if(user) {
@@ -11,7 +11,7 @@ const LogIn = (props) => {
     }, [user])
     return (
         <div>
-            <label>Username</label>
+            <label>Email</label>
             <input type="text" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
             <p>{emailError}</p>
             <label>Password</label>
@@ -28,6 +28,9 @@ const LogIn = (props) => {
                 </div>
                 : 
                 <div>
+                <label>Username</label>
+                <input type="text" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
+                <p>{userNameError}</p>
                     <button onClick={handleSignUp}>Sign Up</button>
                     <p>
                         Have an account?

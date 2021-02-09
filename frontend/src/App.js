@@ -15,8 +15,10 @@ function App() {
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [userNameError, setUserNameError] = useState("");
     const [userExist, setUserExist] = useState(false);
 
     const clearInputs = () => {
@@ -54,9 +56,9 @@ function App() {
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then((res) => {
-            const user = firebase.auth().currentUser;
+            const user = fire.auth().currentUser;
             return user.updateProfile({
-              displayName: newUser.name
+              displayName: userName
             })
           })
           .catch((error) => {
@@ -67,6 +69,9 @@ function App() {
                 break;
                 case "auth/weak-password":
                     setPasswordError(error.message);
+                    break;
+                case "auth/invalid-display-name":
+                    setUserNameError(error.message);
                     break;
             }
         });
@@ -109,6 +114,8 @@ function App() {
               email={email}
               setEmail={setEmail}
               password={password}
+              userName={userName}
+              setUserName={setUserName}
               setPassword={setPassword}
               handleLogIn={handleLogIn}
               handleSignUp={handleSignUp}
@@ -116,6 +123,7 @@ function App() {
               setUserExist={setUserExist}
               emailError={emailError}
               passwordError={passwordError}
+              userNameError={userNameError}
             />}
           />
           <Route exact path={"/subreddit/:id"} component={Subreddit}/>
