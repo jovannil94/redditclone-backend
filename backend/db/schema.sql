@@ -10,10 +10,9 @@ DROP TABLE IF EXISTS subreddits;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    id INTEGER UNIQUE NOT NULL PRIMARY KEY,
+    id SERIAL UNIQUE NOT NULL PRIMARY KEY,
     user_name VARCHAR,
-    email VARCHAR UNIQUE,
-    password VARCHAR
+    email VARCHAR UNIQUE
 );
 
 CREATE TABLE subreddits(

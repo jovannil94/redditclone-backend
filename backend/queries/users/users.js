@@ -18,27 +18,27 @@ const getUsers = async (req, res, next) => {
     }
 }
 
-const logInUser = async (req, res, next) => {
-    try{
-        let user = await db.one(
-            `SELECT * FROM users WHERE user_name = $/user_name/ AND password = $/password/`, {
-                user_name: req.body.user_name,
-                password: req.body.password
-            });
-            res.status(200).json({
-                status: "Success",
-                message: "user logged in",
-                payload: user
-            })
-    } catch (err){
-        res.status(400).json({
-            status: "Error",
-            message: "Couldn't log in user",
-            payload: err
-        })
-        next(err);
-    }
-}
+// const logInUser = async (req, res, next) => {
+//     try{
+//         let user = await db.one(
+//             `SELECT * FROM users WHERE user_name = $/user_name/ AND password = $/password/`, {
+//                 user_name: req.body.user_name,
+//                 password: req.body.password
+//             });
+//             res.status(200).json({
+//                 status: "Success",
+//                 message: "user logged in",
+//                 payload: user
+//             })
+//     } catch (err){
+//         res.status(400).json({
+//             status: "Error",
+//             message: "Couldn't log in user",
+//             payload: err
+//         })
+//         next(err);
+//     }
+// }
 
 const getUserId = async (req, res, next) => {
     try {
@@ -81,7 +81,9 @@ const getUserUsername = async (req, res, next) => {
 const addUser = async (req, res, next) => {
     try {
         let user = await db.one(
-            `INSERT INTO users (user_name, email, password) VALUES('${req.body.user_name}', '${req.body.email}', '${req.body.password}') RETURNING *`)
+            `INSERT INTO users (user_name, email) 
+            VALUES('${req.body.user_name}', '${req.body.email}') 
+            RETURNING *`)
         res.status(200).json({
             user,
             status: "Success",
@@ -116,4 +118,4 @@ const deleteUser = async (req, res, next) => {
 
 
 
-module.exports = { getUsers, logInUser, getUserId, getUserUsername, addUser, deleteUser };
+module.exports = { getUsers, getUserId, getUserUsername, addUser, deleteUser };

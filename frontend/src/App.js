@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import LogIn from './components/LogIn';
@@ -50,7 +51,7 @@ function App() {
         });
     }
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         clearError();
         fire
           .auth()
@@ -74,6 +75,10 @@ function App() {
                     setUserNameError(error.message);
                     break;
             }
+        });
+        await axios.post(`http://localhost:3001/users`, {
+          user_name: userName,
+          email: email
         });
     }
 
