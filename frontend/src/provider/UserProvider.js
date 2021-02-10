@@ -17,7 +17,9 @@ const UserProvider = ({ children }) => {
       }
     }
     fire.auth().onAuthStateChanged(userAuth => {
-      getUserID(userAuth.email)
+      if(userAuth !== null) {
+        getUserID(userAuth.email)
+      }
     });
    }, []);
 
