@@ -7,6 +7,7 @@ import HomePage from './components/HomePage';
 import NavBar from './components/Navbar';
 import Subreddit from  './components/Subreddit';
 import CreatePost from './components/CreatePost';
+import CreateSubreddit from './components/CreateSubreddit';
 import PostDetails from './helper/PostDetails';
 import fire from "./Fire";
 import UserProvider from './provider/UserProvider';
@@ -132,7 +133,8 @@ function App() {
             />}
           />
           <Route exact path={"/subreddit/:id"} component={Subreddit}/>
-          <Route exact path={"/submit"} component={CreatePost}/>
+          <Route exact path={"/addpost"} component={CreatePost}/>
+          <Route exact path={"/addsubreddit"} component={CreateSubreddit}/>
           <Route exact path={"/post/:id"} component={PostDetails}/>
         </Switch>
       </UserProvider>

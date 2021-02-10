@@ -18,7 +18,7 @@ CREATE TABLE users (
 CREATE TABLE subreddits(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    subname VARCHAR
+    subname VARCHAR UNIQUE
 );
 
 CREATE TABLE posts(

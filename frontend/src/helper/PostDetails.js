@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useInputs } from "../util/InputHook";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/PostDetails.css";
+import { UserContext } from "../provider/UserProvider";
 
 const PostDetails = () => {
     const { id } = useParams();
-    const user_id= localStorage.getItem("currentUser");
     const [showPost, setShowPost] = useState([]);
     const [showPostVotes, setShowPostVotes] = useState([]);
     const [showAllComments, setShowAllComments] = useState([]);
+    const { userID } = useContext(UserContext);
     const commentContext = useInputs("");
     
     const fetchPost = async () => {
@@ -43,7 +44,7 @@ const PostDetails = () => {
         e.preventDefault();
         try {
             await axios.post("http://localhost:3001/comments/", {
-                user_id: user_id,
+                user_id: userID,
                 post_id: id,
                 context: commentContext.value
             })
@@ -58,25 +59,25 @@ const PostDetails = () => {
         let type = e.target.value
         try {
             let didVote = await axios.post("http://localhost:3001/votes/check",{
-                user_id: user_id,
+                user_id: userID,
                 post_id: id
             })
             if (didVote.data.payload.length === 0){
                     await axios.post("http://localhost:3001/votes/add",{
-                    user_id: user_id,
+                    user_id: userID,
                     post_id: id,
                     vote_type: type
                 });
             } else if (didVote.data.payload[0].vote_type === type) {
                 await axios.delete("http://localhost:3001/votes/delete", {
                     data: {
-                        user_id: user_id,
+                        user_id: userID,
                         post_id: id 
                     }
                 });
             } else if (didVote.data.payload[0].vote_type !== type) {
                 await axios.patch("http://localhost:3001/votes/changevote", {
-                    user_id: user_id,
+                    user_id: userID,
                     post_id: id,
                     vote_type: type
                 });

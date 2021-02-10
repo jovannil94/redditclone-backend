@@ -1,23 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../css/Navbar.css";
 import logo from "../images/redditLogo.png";
 import axios from "axios";
 import fire from "./../Fire";
-// import { UserContext } from "../provider/UserProvider";
 
 
 const NavBar = () => {
     const user = fire.auth().currentUser;
-    // const [userName, setUserName] = useState("");
-    // if (user !== null) {
-    //     setUserName(user.displayName)
-    // }
-    // console.log(userName)
-    // console.log(user)
-    // const { user } = useContext(UserContext);
-    // debugger
-    // console.log(user.displayName)
     const [subreddits, setSubreddits] = useState([]);
     const [display, setDisplay] = useState(false);
     const [search, setSearch] = useState("");

@@ -1,6 +1,6 @@
 const users = require('express').Router();
 
-const { getUsers, getUserId, getUserUsername, addUser, deleteUser } = require('../../queries/users/users');
+const { getUsers, getUserId, getUserIDByEmail, addUser, deleteUser } = require('../../queries/users/users');
 
 users.get("/", getUsers);
 
@@ -8,7 +8,7 @@ users.get("/", getUsers);
 
 users.get("/:id", getUserId);
 
-users.get("/search/:user_name", getUserUsername);
+users.get("/search/:email", getUserIDByEmail);
 
 users.post("/", addUser);
 

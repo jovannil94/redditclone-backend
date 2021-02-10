@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useInputs } from "../util/InputHook"; 
 import axios from "axios";
-import "../css/CreatePost.css";
 import { UserContext } from "../provider/UserProvider";
-import { useHistory } from "react-router-dom";
 
-const CreatePost = () => {
+const CreateSubreddit = () => {
     const [subreddits, setSubreddits] = useState([]);
     const [chosenSub, setChosenSub] = useState("");
     const titleContext = useInputs("");
     const bodyContext = useInputs("");
     const { userID } = useContext(UserContext);
-    const history = useHistory();
-    const homeRedirect = () => history.push(`/`);
 
     const fetchSubreddits = async () => {
         try {
@@ -40,7 +36,6 @@ const CreatePost = () => {
         } catch (error) {
             console.log(error)
         }
-        homeRedirect();
     }
 
     useEffect(() => {
@@ -65,4 +60,4 @@ const CreatePost = () => {
     )
 }
 
-export default CreatePost;
+export default CreateSubreddit;

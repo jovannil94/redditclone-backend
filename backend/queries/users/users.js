@@ -42,7 +42,9 @@ const getUsers = async (req, res, next) => {
 
 const getUserId = async (req, res, next) => {
     try {
-        let user = await db.one(`SELECT * FROM users WHERE id = '${req.params.id}'`);
+        let user = await db.one(`SELECT * FROM users WHERE id = $/id/`, {
+          id: req.params.id
+        });
         res.status(200).json({
           status: "Success",
           message: "user retrieved by id",
@@ -58,20 +60,21 @@ const getUserId = async (req, res, next) => {
       }
 }
 
-const getUserUsername = async (req, res, next) => {
+const getUserIDByEmail = async (req, res, next) => {
     try {
         let user = await db.any(
-          `SELECT * FROM users WHERE user_name LIKE '${req.params.user_name}%'`
-        );
+          `SELECT id FROM users WHERE email LIKE $/email/`, {
+            email : req.params.email
+          });
         res.status(200).json({
           status: "Success",
-          message: "Grabbed user by user_name",
+          message: "Grabbed user by email",
           payload: user
         });
       } catch (err){
         res.status(400).json({
             status: "Error",
-            message: "Couldn't get user by user_name",
+            message: "Couldn't get user by email",
             payload: err
         })
         next(err);
@@ -118,4 +121,4 @@ const deleteUser = async (req, res, next) => {
 
 
 
-module.exports = { getUsers, getUserId, getUserUsername, addUser, deleteUser };
+module.exports = { getUsers, getUserId, getUserIDByEmail, addUser, deleteUser };
