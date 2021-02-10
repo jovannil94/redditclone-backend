@@ -7,7 +7,7 @@ export const UserContext = createContext();
 const UserProvider = ({ children }) => {
     const [userID, setUserID] = useState(null);
 
-   useEffect(async () => {
+   useEffect(() => {
     const getUserID = async (email) => {
       try {
         let Id = await axios.get(`http://localhost:3001/users/search/${email}`)

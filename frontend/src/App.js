@@ -40,7 +40,7 @@ function App() {
           .signInWithEmailAndPassword(email, password)
           .catch((error) => {
             switch(error.code){
-                case "auth/invalid-email":
+                default: case "auth/invalid-email":
                 case "auth/user-disabled":
                 case "auth/user-not-found":
                     setEmailError(error.message);
@@ -65,7 +65,7 @@ function App() {
           })
           .catch((error) => {
             switch(error.code){
-                case "auth/email-already-in-use":
+                default: case "auth/email-already-in-use":
                 case "auth/invalid-email":
                     setEmailError(error.message);
                 break;
@@ -83,23 +83,18 @@ function App() {
         });
     }
 
-    const handleLogOut = () => {
-        fire.auth().signOut();
-    }
-
-    const authListener = () => {
-        fire.auth().onAuthStateChanged(user => {
-            if(user){
-                clearInputs();
-                setUser(user);
-            } else {
-                setUser("");
-            }
-        })
-    }
-
     useEffect(() => {
-        authListener();
+      const authListener = () => {
+          fire.auth().onAuthStateChanged(user => {
+              if(user){
+                  clearInputs();
+                  setUser(user);
+              } else {
+                  setUser("");
+              }
+          })
+      }
+      authListener();
     }, [])
 
   return (

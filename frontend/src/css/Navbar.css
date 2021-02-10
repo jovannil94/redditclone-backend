@@ -14,3 +14,7 @@
 .Logo:hover{
     cursor: pointer;
 }
+
+.userNameDisplay{
+    color: white;
+}

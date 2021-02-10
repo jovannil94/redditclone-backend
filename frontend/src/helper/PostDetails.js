@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/PostDetails.css";
 import { UserContext } from "../provider/UserProvider";
+import { useHistory } from "react-router-dom";
+import fire from "./../Fire";
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -12,6 +14,9 @@ const PostDetails = () => {
     const [showAllComments, setShowAllComments] = useState([]);
     const { userID } = useContext(UserContext);
     const commentContext = useInputs("");
+    const user = fire.auth().currentUser;
+    const history = useHistory();
+    const logInRedirect = () => history.push(`/login`);
     
     const fetchPost = async () => {
         try {
@@ -42,49 +47,57 @@ const PostDetails = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await axios.post("http://localhost:3001/comments/", {
-                user_id: userID,
-                post_id: id,
-                context: commentContext.value
-            })
-            fetchPost();
-        } catch (error) {
-            console.log(error)
+        if (user !== null){
+            try {
+                await axios.post("http://localhost:3001/comments/", {
+                    user_id: userID,
+                    post_id: id,
+                    context: commentContext.value
+                })
+                fetchPost();
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            logInRedirect(); 
         }
     }
 
     const handlePostVote = async (e) => {
         e.preventDefault();
         let type = e.target.value
-        try {
-            let didVote = await axios.post("http://localhost:3001/votes/check",{
-                user_id: userID,
-                post_id: id
-            })
-            if (didVote.data.payload.length === 0){
-                    await axios.post("http://localhost:3001/votes/add",{
+        if (user !== null) {
+            try {
+                let didVote = await axios.post("http://localhost:3001/votes/check",{
                     user_id: userID,
-                    post_id: id,
-                    vote_type: type
-                });
-            } else if (didVote.data.payload[0].vote_type === type) {
-                await axios.delete("http://localhost:3001/votes/delete", {
-                    data: {
+                    post_id: id
+                })
+                if (didVote.data.payload.length === 0){
+                        await axios.post("http://localhost:3001/votes/add",{
                         user_id: userID,
-                        post_id: id 
-                    }
-                });
-            } else if (didVote.data.payload[0].vote_type !== type) {
-                await axios.patch("http://localhost:3001/votes/changevote", {
-                    user_id: userID,
-                    post_id: id,
-                    vote_type: type
-                });
+                        post_id: id,
+                        vote_type: type
+                    });
+                } else if (didVote.data.payload[0].vote_type === type) {
+                    await axios.delete("http://localhost:3001/votes/delete", {
+                        data: {
+                            user_id: userID,
+                            post_id: id 
+                        }
+                    });
+                } else if (didVote.data.payload[0].vote_type !== type) {
+                    await axios.patch("http://localhost:3001/votes/changevote", {
+                        user_id: userID,
+                        post_id: id,
+                        vote_type: type
+                    });
+                }
+                fetchPost();
+            } catch (error) {
+                console.log(error) 
             }
-            fetchPost();
-        } catch (error) {
-            console.log(error) 
+        } else {
+            logInRedirect(); 
         }
     }
 

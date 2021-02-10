@@ -46,11 +46,6 @@ const NavBar = () => {
         }
     }
 
-    // const handleSearchClick = (e) => {
-    //     e.preventDefault();
-    //     subredditRedirect(e.currentTarget.textContent)
-    // }
-
     const setSubFilter = subreddit => {
         setSearch(subreddit);
         setDisplay(false);
@@ -93,7 +88,7 @@ const NavBar = () => {
                     })}
                 </div>
             )}
-
+            {user ? <p className="userNameDisplay">u/{user.displayName}</p> : null}
             { user ? 
                 <button onClick={signOut}>Sign Out</button> :
                 <button onClick={logIn}>Login</button>
