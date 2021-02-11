@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import "../css/LogIn.css";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const LogIn = (props) => {
     const { user, email, setEmail, password, setPassword, userName, setUserName, handleLogIn, handleSignUp, userExist, setUserExist, emailError, passwordError, userNameError } = props;
@@ -11,16 +13,14 @@ const LogIn = (props) => {
     }, [user])
     return (
         <div>
-            <label>Email</label>
-            <input type="text" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <TextField id="filled-basic" label="Email" variant="filled" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
             <p>{emailError}</p>
-            <label>Password</label>
-            <input type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <TextField id="filled-basic" label="Password" variant="filled" type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
             <p>{passwordError}</p>
             <div>
                 {!userExist ?
                 <div>
-                    <button onClick={handleLogIn}>Login</button>
+                    <Button variant="contained" onClick={handleLogIn}>Log In</Button>
                     <p>
                         Don't have an account?
                         <span onClick={() => setUserExist(!userExist)}>Sign Up</span>
@@ -28,10 +28,9 @@ const LogIn = (props) => {
                 </div>
                 : 
                 <div>
-                <label>Username</label>
-                <input type="text" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
-                <p>{userNameError}</p>
-                    <button onClick={handleSignUp}>Sign Up</button>
+                    <TextField id="filled-basic" label="Username" variant="filled" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
+                    <p>{userNameError}</p>
+                    <Button variant="contained" onClick={handleSignUp}>Sign Up</Button>
                     <p>
                         Have an account?
                         <span onClick={() => setUserExist(!userExist)}>Login</span>

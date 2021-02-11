@@ -4,6 +4,7 @@ import "../css/Navbar.css";
 import logo from "../images/redditLogo.png";
 import axios from "axios";
 import fire from "./../Fire";
+import Button from '@material-ui/core/Button';
 
 
 const NavBar = () => {
@@ -89,9 +90,9 @@ const NavBar = () => {
                 </div>
             )}
             {user ? <p className="userNameDisplay">u/{user.displayName}</p> : null}
-            { user ? 
-                <button onClick={signOut}>Sign Out</button> :
-                <button onClick={logIn}>Login</button>
+            { user ?
+                <Button variant="contained" onClick={signOut}>Sign Out</Button> :
+                <Button variant="contained" onClick={logIn}>Log In</Button>
                 }
         </nav>
     )

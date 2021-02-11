@@ -77,10 +77,14 @@ function App() {
                     break;
             }
         });
-        await axios.post(`http://localhost:3001/users`, {
-          user_name: userName,
-          email: email
-        });
+        try {
+          await axios.post(`http://localhost:3001/users`, {
+            user_name: userName,
+            email: email
+          });
+        } catch (error) {
+          console.log(error)
+        }
     }
 
     useEffect(() => {
