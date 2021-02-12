@@ -4,6 +4,11 @@ import axios from "axios";
 import "../css/CreatePost.css";
 import { UserContext } from "../provider/UserProvider";
 import { useHistory } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const CreatePost = () => {
     const [subreddits, setSubreddits] = useState([]);
@@ -25,7 +30,7 @@ const CreatePost = () => {
 
     const handleChange = (e) => {
         e.preventDefault();
-        setChosenSub(e.currentTarget.value);
+        setChosenSub(e.target.value);
     }
 
     const handleSubmit = async (e) => {
@@ -49,17 +54,23 @@ const CreatePost = () => {
 
     return(
         <div className="createPostContainer">
-            <select className="createPostSelector" value={chosenSub} onChange={handleChange}>
-            {/* create an error for not selecting a community as required does not prevent this */}
-                <option disabled value="">Choose A Community</option>
-                {subreddits.map((subreddit) => 
-                    <option key={subreddit.id} value={subreddit.id}>/r{subreddit.subname}</option>
+            <FormControl>
+                <Select
+                labelId="simple-select-label"
+                id="simple-select"
+                displayEmpty
+                value={chosenSub}
+                onChange={handleChange}
+                >
+                {subreddits.map((subreddit) =>
+                    <MenuItem key={subreddit.id} value={ subreddit.id }>/r{subreddit.subname}</MenuItem>
                 )}
-            </select>
+                </Select>
+            </FormControl>
             <form className="createForm" onSubmit={handleSubmit}>
-                <input className="createFormTitle" required type="text" placeholder="Title" {...titleContext}/>
-                <input className="createFormBody" required type="textarea" placeholder="Text(optional)" {...bodyContext}/>
-                <input className="createFormSubmit" type="submit" value="Post"/>
+                <TextField id="filled-basic" label="Title" variant="filled" autoFocus required {...titleContext}/>
+                <TextField id="filled-basic" label="Text(optional)" variant="filled" autoFocus {...bodyContext}/>
+                <Button variant="contained" type="submit">Post</Button>
             </form>
         </div>
     )

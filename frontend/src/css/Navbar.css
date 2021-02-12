@@ -6,9 +6,8 @@
 }
 
 .Logo {
-    height: 150%;
+    height: 70px;
     width: auto;
-    margin-top: -.5em;
 }
 
 .Logo:hover{

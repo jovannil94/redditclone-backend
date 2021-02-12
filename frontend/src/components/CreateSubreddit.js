@@ -30,9 +30,7 @@ const CreateSubreddit = () => {
             <form className="createForm" onSubmit={handleSubmit}>
                 <label>Subreddit /r</label>
                 <TextField id="filled-basic" label="Subname" variant="filled" required autoFocus required {...nameContext}/>
-                {/* <input className="createFormTitle" required type="text" placeholder="Subname" {...nameContext}/> */}
                 <Button variant="contained" type="submit">Post</Button>
-                {/* <input className="createFormSubmit" type="submit" value="Post"/> */}
             </form>
         </div>
     )

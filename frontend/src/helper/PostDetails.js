@@ -6,6 +6,8 @@ import "../css/PostDetails.css";
 import { UserContext } from "../provider/UserProvider";
 import { useHistory } from "react-router-dom";
 import fire from "./../Fire";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -118,8 +120,8 @@ const PostDetails = () => {
                     <p className="postDetails">{showPost.body}</p>
                 </div>
                 <form className="postForm" onSubmit={handleSubmit}>
-                    <textarea className="createFormBody" required placeholder="What are your thoughts?" {...commentContext}/>
-                    <input className="createFormSubmit" type="submit" value="Post"/>
+                    <TextField id="filled-basic" label="What are your thoughts?" variant="filled" autoFocus required {...commentContext}/>
+                    <Button variant="contained" type="submit">Post</Button>
                 </form>
                 <div className="postComments">
                     {printComments}
