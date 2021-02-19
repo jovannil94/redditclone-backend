@@ -118,6 +118,10 @@ const PostDetails = () => {
                 <div className="postHolder">
                     <h2 className="postPostedHeader">{showPost.title}</h2>
                     <p className="postDetails">{showPost.body}</p>
+                    {showPost.image ? 
+                    <img className="postImage" src={showPost.image} alt="post_image"/>
+                    : null
+                }
                 </div>
                 <form className="postForm" onSubmit={handleSubmit}>
                     <TextField id="filled-basic" label="What are your thoughts?" variant="filled" autoFocus required {...commentContext}/>

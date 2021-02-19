@@ -19,7 +19,10 @@ const PostIndex = ({ allPost }) => {
             <div className="postDetails">
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
-                <p>{post.image}</p>
+                {post.image ? 
+                    <img className="postImage" src={post.image} alt="post_image"/>
+                    : null
+                }
             </div>
         </div>
     ))

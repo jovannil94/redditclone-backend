@@ -4,7 +4,8 @@
     justify-content: space-evenly;
     text-align: left;
     color: black;
-    width: 80vw;
+    width: 60vw;
+    height: fit-content;
     border: solid lightgrey 1px;
     border-radius: 1px;
     background-color: white;
@@ -14,6 +15,20 @@
 
 .postCount{
     width: 5%
+}
+
+.postPostedHeader {
+    display: flex;
+    flex-direction: row;
+    height: 15%;
+    width: 100%;
+}
+
+.postDetails { 
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
 }
 
 .postContent {
@@ -41,4 +56,9 @@
 
 .postCard:hover{
     cursor: pointer;
+}
+
+.postImage {
+    height: auto;
+    width: 80%;
 }

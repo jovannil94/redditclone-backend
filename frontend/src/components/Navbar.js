@@ -58,10 +58,11 @@ const NavBar = () => {
 
     const handleChange = async (e) => {
         e.preventDefault();
-        if(e.target.value === "Home") {
+        let sub = e.target.value
+        setChosen(sub)
+        if(sub === "Home") {
             homeRedirect();
         } else {
-            let sub = e.target.value
             subredditRedirect(sub)
         }
     }
@@ -80,7 +81,7 @@ const NavBar = () => {
     }, []);
 
     return(
-        <AppBar position="static">
+        <AppBar width="100%" position="static">
             <Toolbar>
                 <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
                 <FormControl className={classes.formControl}>
@@ -92,7 +93,7 @@ const NavBar = () => {
                         id: 'subname',
                     }}
                     >
-                        <option value={"Home"}>Home</option>
+                        <option value="Home">Home</option>
                         {subreddits.map((subreddit) => 
                             <option key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</option>
                         )}

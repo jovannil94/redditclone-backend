@@ -9,10 +9,12 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { storage } from "../Fire";
 
 const CreatePost = () => {
     const [subreddits, setSubreddits] = useState([]);
     const [chosenSub, setChosenSub] = useState("");
+    const [urlLink, setUrlLink] = useState("");
     const titleContext = useInputs("");
     const bodyContext = useInputs("");
     const { userID } = useContext(UserContext);
@@ -33,14 +35,40 @@ const CreatePost = () => {
         setChosenSub(e.target.value);
     }
 
+    const handleFile = (e) => {
+        e.preventDefault();
+        let file = e.target.files[0];
+        if(file) {
+            const uploadImage = storage.ref(`images/${file.name}`).put(file)
+            uploadImage.on(
+                "state_changed",
+                snapshot => {},
+                error => {
+                    console.log(error);
+                },
+                () => {
+                    storage
+                        .ref("images")
+                        .child(file.name)
+                        .getDownloadURL()
+                        .then(url => {
+                            setUrlLink(url)
+                        })
+                }
+            )
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        debugger
         try {
             await axios.post("http://localhost:3001/posts/", {
                 user_id: userID,
                 sub_id: chosenSub,
                 title: titleContext.value,
-                context: bodyContext.value
+                context: bodyContext.value,
+                image: urlLink
             })
         } catch (error) {
             console.log(error)
@@ -62,6 +90,7 @@ const CreatePost = () => {
                 value={chosenSub}
                 onChange={handleChange}
                 >
+                <MenuItem disabled default>Choose a Community</MenuItem>
                 {subreddits.map((subreddit) =>
                     <MenuItem key={subreddit.id} value={ subreddit.id }>/r{subreddit.subname}</MenuItem>
                 )}
@@ -70,6 +99,8 @@ const CreatePost = () => {
             <form className="createForm" onSubmit={handleSubmit}>
                 <TextField id="filled-basic" label="Title" variant="filled" autoFocus required {...titleContext}/>
                 <TextField id="filled-basic" label="Text(optional)" variant="filled" autoFocus {...bodyContext}/>
+                <label>Upload Image (optional)</label>
+                <input type="file" onChange={handleFile}/>
                 <Button variant="contained" type="submit">Post</Button>
             </form>
         </div>
