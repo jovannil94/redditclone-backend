@@ -11,6 +11,18 @@ import CreateSubreddit from './components/CreateSubreddit';
 import PostDetails from './helper/PostDetails';
 import fire from "./Fire";
 import UserProvider from './provider/UserProvider';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#FFFFFF',
+    },
+    secondary: {
+      main: '#000',
+    },
+  },
+});
 
 
 function App() {
@@ -102,42 +114,44 @@ function App() {
     }, [])
 
   return (
-    <div className="App">
-      <UserProvider>
-        <NavBar user={user}/>
-        <Switch>
-          <Route exact path={"/"}
-            render={() =>
-              <HomePage 
-              user={user}
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <UserProvider>
+          <NavBar user={user}/>
+          <Switch>
+            <Route exact path={"/"}
+              render={() =>
+                <HomePage 
+                user={user}
+                />}
+            />
+            <Route exact path={"/login"}
+              render={() => 
+              <LogIn
+                user={user}
+                email={email}
+                setEmail={setEmail}
+                password={password}
+                userName={userName}
+                setUserName={setUserName}
+                setPassword={setPassword}
+                handleLogIn={handleLogIn}
+                handleSignUp={handleSignUp}
+                userExist={userExist}
+                setUserExist={setUserExist}
+                emailError={emailError}
+                passwordError={passwordError}
+                userNameError={userNameError}
               />}
-          />
-          <Route exact path={"/login"}
-            render={() => 
-            <LogIn
-              user={user}
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              userName={userName}
-              setUserName={setUserName}
-              setPassword={setPassword}
-              handleLogIn={handleLogIn}
-              handleSignUp={handleSignUp}
-              userExist={userExist}
-              setUserExist={setUserExist}
-              emailError={emailError}
-              passwordError={passwordError}
-              userNameError={userNameError}
-            />}
-          />
-          <Route exact path={"/subreddit/:id"} component={Subreddit}/>
-          <Route exact path={"/addpost"} component={CreatePost}/>
-          <Route exact path={"/addsubreddit"} component={CreateSubreddit}/>
-          <Route exact path={"/post/:id"} component={PostDetails}/>
-        </Switch>
-      </UserProvider>
-    </div>
+            />
+            <Route exact path={"/subreddit/:id"} component={Subreddit}/>
+            <Route exact path={"/addpost"} component={CreatePost}/>
+            <Route exact path={"/addsubreddit"} component={CreateSubreddit}/>
+            <Route exact path={"/post/:id"} component={PostDetails}/>
+          </Switch>
+        </UserProvider>
+      </div>
+    </ThemeProvider>
   );
 }
 

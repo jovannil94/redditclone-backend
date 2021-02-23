@@ -1,10 +1,10 @@
 .postCard{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     text-align: left;
     color: black;
-    width: 60vw;
+    width: 40vw;
     height: fit-content;
     border: solid lightgrey 1px;
     border-radius: 1px;
@@ -17,24 +17,17 @@
     width: 5%
 }
 
-.postPostedHeader {
-    display: flex;
-    flex-direction: row;
-    height: 15%;
-    width: 100%;
-}
-
 .postDetails { 
     display: flex;
     flex-direction: column;
-    height: 85%;
+    height: fit-content;
     width: 100%;
 }
 
 .postContent {
     display: flex;
     flex-direction: column;
-    width: 95%;
+    width: 100%;
 }
 
 .postHolder {
@@ -60,5 +53,5 @@
 
 .postImage {
     height: auto;
-    width: 80%;
+    width: 100%;
 }

@@ -108,12 +108,12 @@ const PostDetails = () => {
     }, [id])
 
     return(
-        <div className="postCard">
-        <div className="postVotes">
-            <button className="postUpVote" value="up" onClick={handlePostVote}/>
-            <p className="postCount">{showPostVotes}</p>
-            <button className="postDownVote" value="down" onClick={handlePostVote}/>
-        </div>
+        <div className="singlePostCard">
+            <div className="postVotes">
+                <button className="postUpVote" value="up" onClick={handlePostVote}/>
+                <p className="postCount">{showPostVotes}</p>
+                <button className="postDownVote" value="down" onClick={handlePostVote}/>
+            </div>
             <div className="postContent">
                 <div className="postHolder">
                     <h2 className="postPostedHeader">{showPost.title}</h2>

@@ -6,15 +6,14 @@ import axios from "axios";
 import fire from "./../Fire";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
-
+import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon';
+import PageviewIcon from '@material-ui/icons/Pageview';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = () => {
     const user = fire.auth().currentUser;
     const [subreddits, setSubreddits] = useState([]);
-    const [chosen, setChosen] = useState([]);
+    const [chosen, setChosen] = useState("");
     const history = useHistory();
     const homeRedirect = () => history.push(`/`);
     const logInRedirect = () => history.push(`/login`);
@@ -83,45 +82,46 @@ const NavBar = () => {
     return(
         <AppBar width="100%" position="static">
             <Toolbar>
-                <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
-                <FormControl className={classes.formControl}>
-                    <NativeSelect
-                    value={chosen}
-                    onChange={handleChange}
-                    inputProps={{
-                        name: 'subreddit',
-                        id: 'subname',
-                    }}
-                    >
-                        <option value="Home">Home</option>
-                        {subreddits.map((subreddit) => 
-                            <option key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</option>
-                        )}
-                    </NativeSelect>
-                </FormControl>
-                {/* <FormControl>
-                    <Select
-                    labelId="simple-select-label"
-                    id="simple-select"
-                    displayEmpty
-                    value={chosen}
-                    onChange={handleChange}
-                    >
-                    <MenuItem value="Home">Home</MenuItem>
-                    {subreddits.map((subreddit) => 
-                        <MenuItem key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</MenuItem>
-                    )}
-                    </Select>
-                </FormControl> */}
-                {user ? 
-                    <Typography variant="h6" className={classes.title}>
-                    u/{user.displayName}
-                    </Typography>
-                : null}
-                { user ?
-                    <Button variant="inherit" onClick={signOut}>Sign Out</Button> :
-                    <Button variant="inherit" onClick={logIn}>Log In</Button>
-                    }
+            <Grid
+            justify="space-between"
+            container 
+            spacing={24}
+            >
+                <Grid item>
+                    <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
+                </Grid>
+                <Grid item>
+                    <PageviewIcon/>
+                    <FormControl className={classes.formControl}>
+                        <NativeSelect
+                        value={chosen}
+                        onChange={handleChange}
+                        inputProps={{
+                            name: 'subreddit',
+                            id: 'subname',
+                        }}
+                        >
+                            <option value="Home">Home</option>
+                            {subreddits.map((subreddit) => 
+                                <option key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</option>
+                            )}
+                        </NativeSelect>
+                    </FormControl>
+                </Grid>
+                <Grid item>
+                    {user ? 
+                        <Typography variant="h6" className={classes.title}>
+                        u/{user.displayName}
+                        </Typography>
+                    : null}
+                </Grid>
+                <Grid item>
+                    { user ?
+                        <Button variant="contained" color='secondary' onClick={signOut}>Sign Out</Button> :
+                        <Button variant="contained" color='secondary' onClick={logIn}>Log In</Button>
+                        }
+                </Grid>
+            </Grid>
             </Toolbar>
         </AppBar>
     )

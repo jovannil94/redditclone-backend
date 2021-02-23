@@ -61,7 +61,6 @@ const CreatePost = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        debugger
         try {
             await axios.post("http://localhost:3001/posts/", {
                 user_id: userID,

@@ -1,3 +1,27 @@
+.singlePostCard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-align: left;
+    color: black;
+    width: 60vw;
+    height: fit-content;
+    border: solid lightgrey 1px;
+    border-radius: 1px;
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+}
+
+.singleUpperDetails {
+    display: flex;
+    flex-direction: row;
+}
+
+.postVotes {
+    width: 7%;
+}
+
 .postForm{
     display: flex;
     flex-direction: column;

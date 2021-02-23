@@ -13,7 +13,7 @@ const PostIndex = ({ allPost }) => {
     const printAll = allPost.map((post) => (
         <div className="postCard" key={post.id} onClick={((e) => {openPost(e, post.id)})}>
             <div className="postPostedHeader">
-                <p className="postSubreddit">r/{post.subname}</p>
+                <p className="postSubreddit"><b>r/{post.subname}</b></p>
                 <p className="postUser"> Posted by u/{post.user_name}</p>
             </div>
             <div className="postDetails">
