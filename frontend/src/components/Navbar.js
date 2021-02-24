@@ -8,12 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
 import PageviewIcon from '@material-ui/icons/Pageview';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,6 +35,7 @@ const NavBar = () => {
     const homeRedirect = () => history.push(`/`);
     const logInRedirect = () => history.push(`/login`);
     const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     const subredditRedirect = (selected) => {
         history.push({
@@ -66,13 +67,27 @@ const NavBar = () => {
         }
     }
 
+    
+    const logIn = () => {
+        logInRedirect();
+    }
+    
+    const handleClickOpen = (e) => {
+        setAnchorEl(e.currentTarget);
+    };
+    
+    const handleClickClose = () => {
+        setAnchorEl(null);
+    };
+    
     const signOut = () => {
+        handleClickClose();
         fire.auth().signOut();
         window.location.href = "./"
     }
-
-    const logIn = () => {
-        logInRedirect();
+      const redirectToSubreddit = () => {
+        handleClickClose();
+        history.push(`/addsubreddit`);
     }
 
     useEffect(() => {
@@ -80,7 +95,7 @@ const NavBar = () => {
     }, []);
 
     return(
-        <AppBar style={{height: 55}} position="static">
+        <AppBar style={{height: 60}} position="static">
             <Toolbar>
             <Grid
             justify="space-between"
@@ -94,6 +109,7 @@ const NavBar = () => {
                     <PageviewIcon fontSize='large' color='secondary'/>
                     <FormControl className={classes.formControl}>
                         <NativeSelect
+                        color='secondary'
                         value={chosen}
                         onChange={handleChange}
                         inputProps={{
@@ -109,17 +125,24 @@ const NavBar = () => {
                     </FormControl>
                 </Grid>
                 <Grid item>
-                    {user ? 
-                        <Typography variant="h6" className={classes.title}>
-                        u/{user.displayName}
-                        </Typography>
-                    : null}
-                </Grid>
-                <Grid item>
-                    { user ?
-                        <Button variant="contained" color='secondary' onClick={signOut}>Sign Out</Button> :
-                        <Button variant="contained" color='secondary' onClick={logIn}>Log In</Button>
-                        }
+                { user ?
+                    <div>
+                        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClickOpen}>
+                            {user.displayName}
+                        </Button>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClickClose}
+                        >
+                            <MenuItem onClick={redirectToSubreddit}>Create Subreddit</MenuItem>
+                            <MenuItem onClick={signOut}>Logout</MenuItem>
+                        </Menu>
+                    </div>
+                    : <Button variant="contained" color='secondary' onClick={logIn}>Log In</Button>
+                }
                 </Grid>
             </Grid>
             </Toolbar>

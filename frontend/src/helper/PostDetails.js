@@ -8,6 +8,10 @@ import { useHistory } from "react-router-dom";
 import fire from "./../Fire";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import RedditIcon from '@material-ui/icons/Reddit';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import moment from "moment";
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -38,8 +42,9 @@ const PostDetails = () => {
     const printComments = showAllComments.map((comment) => (
         <div className="commentCard" key={comment.id}>
             <div className="commentHeader">
-                <p className="commentUser">{comment.user_name}</p>
-                <p className="commentDate">{comment.comment_date}</p>
+                <RedditIcon fontSize='large' color='secondary'/>
+                <p className="commentInfo">{comment.user_name}</p>
+                <p className="commentDate">{moment(comment.comment_date).fromNow()}</p>
             </div>
             <div className="commentDetails">
                 <p>{comment.body}</p>
@@ -65,9 +70,8 @@ const PostDetails = () => {
         }
     }
 
-    const handlePostVote = async (e) => {
-        e.preventDefault();
-        let type = e.target.value
+    const handlePostVote = async (type) => {
+        debugger
         if (user !== null) {
             try {
                 let didVote = await axios.post("http://localhost:3001/votes/check",{
@@ -110,9 +114,9 @@ const PostDetails = () => {
     return(
         <div className="singlePostCard">
             <div className="postVotes">
-                <button className="postUpVote" value="up" onClick={handlePostVote}/>
+                <ArrowUpwardIcon onClick={() => handlePostVote("up")}/>
                 <p className="postCount">{showPostVotes}</p>
-                <button className="postDownVote" value="down" onClick={handlePostVote}/>
+                <ArrowDownwardIcon onClick={() => handlePostVote("down")}/>
             </div>
             <div className="postContent">
                 <div className="postHolder">
@@ -124,8 +128,9 @@ const PostDetails = () => {
                 }
                 </div>
                 <form className="postForm" onSubmit={handleSubmit}>
-                    <TextField id="filled-basic" label="What are your thoughts?" variant="filled" autoFocus required {...commentContext}/>
-                    <Button variant="contained" type="submit">Post</Button>
+                    <TextField id="outlined-basic" color='secondary' variant="outlined" label="What are your thoughts?" autoFocus required {...commentContext}/>
+                    <br/>
+                    <Button variant="contained" color='secondary' type="submit">Post</Button>
                 </form>
                 <div className="postComments">
                     {printComments}

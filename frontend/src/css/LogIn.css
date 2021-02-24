@@ -1,16 +1,22 @@
 .loginContainer {
     display: flex;
+    justify-content: center;
+    height: 93vh;
+}
+
+.loginContent {
+    display: flex;
     flex-direction: column;
+    text-align: center;
     justify-content: space-evenly;
     color: black;
     width: 30vw;
-    height: fit-content;
+    height: 60vh;
     border: solid lightgrey 1px;
     border-radius: 1px;
     background-color: white;
     margin: auto;
     padding: 20px;
-    margin-top: 1%;
 }
 
 .logInTitle {

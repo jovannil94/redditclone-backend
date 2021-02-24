@@ -13,38 +13,39 @@ const LogIn = (props) => {
     }, [user])
     return (
         <div className="loginContainer">
-            { !userExist ?
-                <h2 className="logInTitle">Log In</h2>
-                : <h2 className="logInTitle">Create an Account</h2>
-            }
-            <TextField id="outlined-basic" color='secondary' variant="outlined" label="Email" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <p>{emailError}</p>
-            <TextField id="outlined-basic" color='secondary' variant="outlined" label="Password" type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <p>{passwordError}</p>
-            <div>
-                {!userExist ?
-                <div>
-                    <Button variant="contained" color='secondary' onClick={handleLogIn}>Log In</Button>
-                    <p>
-                        Don't have an account?
-                        <br/>
-                        <span className="logInClick" onClick={() => setUserExist(!userExist)}>Sign Up</span>
-                    </p>
-                </div>
-                : 
-                <div className="logInUserName">
-                    <TextField id="outlined-basic" color='secondary' variant="outlined" label="Username" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
-                    <p>{userNameError}</p>
-                    <Button variant="contained" color='secondary' onClick={handleSignUp}>Sign Up</Button>
-                    <p>
-                        Have an account?
-                        <br/>
-                        <span className="logInClick" onClick={() => setUserExist(!userExist)}>Login</span>
-                    </p>
-                </div>}
+            <div className="loginContent">
+                { !userExist ?
+                    <h2 className="logInTitle">Log In</h2>
+                    : <h2 className="logInTitle">Create an Account</h2>
+                }
+                <TextField id="outlined-basic" color='secondary' variant="outlined" label="Email" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <p>{emailError}</p>
+                <TextField id="outlined-basic" color='secondary' variant="outlined" label="Password" type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <p>{passwordError}</p>
+                <>
+                    {!userExist ?
+                    <>
+                        <Button variant="contained" color='secondary' onClick={handleLogIn}>Log In</Button>
+                        <p>
+                            Don't have an account?
+                            <br/>
+                            <span className="logInClick" onClick={() => setUserExist(!userExist)}>Sign Up</span>
+                        </p>
+                    </>
+                    : 
+                    <>
+                        <TextField id="outlined-basic" color='secondary' variant="outlined" label="Username" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
+                        <p>{userNameError}</p>
+                        <Button variant="contained" color='secondary' onClick={handleSignUp}>Sign Up</Button>
+                        <p>
+                            Have an account?
+                            <br/>
+                            <span className="logInClick" onClick={() => setUserExist(!userExist)}>Login</span>
+                        </p>
+                    </>}
+                </>
             </div>
         </div>
-
     )
 }
 

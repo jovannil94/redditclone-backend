@@ -18,6 +18,11 @@
     width: 5%
 }
 
+.postPostedHeader {
+    display: flex;
+    flex-direction: row;
+}
+
 .postDetails { 
     display: flex;
     flex-direction: column;

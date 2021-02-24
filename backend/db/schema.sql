@@ -36,7 +36,7 @@ CREATE TABLE comments(
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
     body VARCHAR,
-    comment_date TIMESTAMP
+    comment_date TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE votes(

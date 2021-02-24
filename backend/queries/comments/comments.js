@@ -24,13 +24,12 @@ const getCommentsByPost = async (req, res, next) => {
 const addComment = async (req, res, next) => {
     try {
         let user = await db.one(
-            `INSERT INTO comments (user_id, post_id, body, comment_date)
-             VALUES($/user_id/, $/post_id/, $/body.context/, $/comment_date/)
+            `INSERT INTO comments (user_id, post_id, body)
+             VALUES($/user_id/, $/post_id/, $/body.context/)
              RETURNING *`, {
                 user_id: req.body.user_id,
                 post_id: req.body.post_id,
                 body: {context: req.body.context},
-                comment_date: new Date().toLocaleDateString()
             })
         res.status(200).json({
             user,
