@@ -114,9 +114,9 @@ const PostDetails = () => {
     return(
         <div className="singlePostCard">
             <div className="postVotes">
-                <ArrowUpwardIcon onClick={() => handlePostVote("up")}/>
+                <ArrowUpwardIcon style={{ color: '#F74202' }} onClick={() => handlePostVote("up")}/>
                 <p className="postCount">{showPostVotes}</p>
-                <ArrowDownwardIcon onClick={() => handlePostVote("down")}/>
+                <ArrowDownwardIcon style={{ color: '#8D8FF7' }} onClick={() => handlePostVote("down")}/>
             </div>
             <div className="postContent">
                 <div className="postHolder">

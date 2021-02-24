@@ -20,8 +20,6 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#1072C4',
-      up: '#F74202',
-      down: '#8D8FF7',
     },
   },
 });

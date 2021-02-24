@@ -3,19 +3,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 93vh;
 }
 
 .createPostSelectContainer {
     display: flex;
     flex-direction: row;
-    align-items: left;
+    justify-content: left;
+    align-items: center;
     color: black;
     width: 50vw;
     height: 5vh;
     border: solid lightgrey 1px;
     border-radius: 1px;
     background-color: white;
-    margin: auto;
+    /* margin: auto; */
     padding: 20px;
     margin-top: 1%;
     margin-bottom: 1%;
@@ -30,7 +32,6 @@
     border: solid lightgrey 1px;
     border-radius: 5px;
     background-color: white;
-    margin: auto;
     padding: 20px;
     justify-content: space-between;
     text-align: left;

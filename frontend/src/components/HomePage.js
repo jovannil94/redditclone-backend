@@ -24,12 +24,6 @@ const HomePage = () => {
                     </div>
                     : null
                 }
-                {/* {user ? <div>
-                    <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                        <Button onClick={redirectToSubreddit}>Create A Subreddit</Button>
-                    </ButtonGroup>
-                </div> 
-                : null} */}
                 <DisplayPost choosen={[]}/>
             </div>
         </div>

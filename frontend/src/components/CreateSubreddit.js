@@ -5,6 +5,7 @@ import { UserContext } from "../provider/UserProvider";
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import "../css/CreateSubreddit.css";
 
 const CreateSubreddit = () => {
     const nameContext = useInputs("");
@@ -23,14 +24,15 @@ const CreateSubreddit = () => {
             console.log(error)
         }
         homeRedirect();
+        window.location.reload()
     }
 
     return(
         <div className="createSubContainer">
-            <form className="createForm" onSubmit={handleSubmit}>
-                <label>Subreddit /r</label>
-                <TextField id="filled-basic" label="Subname" variant="filled" required autoFocus required {...nameContext}/>
-                <Button variant="contained" type="submit">Post</Button>
+            <form className="createSubForm" onSubmit={handleSubmit}>
+                <h2>Create Subreddit /r</h2>
+                <TextField id="outlined-basic" color='secondary' label="Subname" variant="outlined" required autoFocus required {...nameContext}/>
+                <Button variant="contained" color='secondary' type="submit">Post</Button>
             </form>
         </div>
     )

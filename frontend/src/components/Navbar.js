@@ -14,6 +14,8 @@ import Grid from '@material-ui/core/Grid';
 import PageviewIcon from '@material-ui/icons/Pageview';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -137,8 +139,14 @@ const NavBar = () => {
                             open={Boolean(anchorEl)}
                             onClose={handleClickClose}
                         >
-                            <MenuItem onClick={redirectToSubreddit}>Create Subreddit</MenuItem>
-                            <MenuItem onClick={signOut}>Logout</MenuItem>
+                            <MenuItem onClick={redirectToSubreddit}>
+                                <AddCircleOutlineIcon fontSize='medium' color='secondary' onClick={redirectToSubreddit}/>
+                                Create Subreddit
+                            </MenuItem>
+                            <MenuItem onClick={signOut}>
+                                <ExitToAppIcon fontSize='medium' color='secondary' onClick={signOut}/>
+                                Logout
+                            </MenuItem>
                         </Menu>
                     </div>
                     : <Button variant="contained" color='secondary' onClick={logIn}>Log In</Button>
