@@ -96,11 +96,11 @@ const CreatePost = () => {
                 </FormControl>
             </div>
             <form className="createForm" onSubmit={handleSubmit}>
-                <TextField id="outlined-basic" label="Title" variant="outlined" autoFocus required {...titleContext}/>
-                <TextField id="outlined-basic" label="Text(optional)" variant="outlined" autoFocus {...bodyContext}/>
+                <TextField id="outlined-basic" color='secondary' label="Title" variant="outlined" autoFocus required {...titleContext}/>
+                <TextField id="outlined-basic" color='secondary' label="Text(optional)" variant="outlined" autoFocus {...bodyContext}/>
                 <label>Upload Image (optional)</label>
-                <input type="file" onChange={handleFile}/>
-                <Button variant="contained" type="submit">Post</Button>
+                <input className="uploadFile" type="file" onChange={handleFile}/>
+                <Button variant="contained" color='secondary' type="submit">Post</Button>
             </form>
         </div>
     )

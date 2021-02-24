@@ -22,7 +22,7 @@ const HomePage = () => {
                 { user ? 
                     <div className="homeCreatePost">
                         <RedditIcon className="icon" fontSize='large' color='secondary' onClick={redirectToPost}/>
-                        <TextField id="outlined-basic" label="Create Post" variant="outlined" style={{width: 500}} onClick={redirectToPost}/>
+                        <TextField id="outlined-basic" color='secondary' label="Create Post" variant="outlined" style={{width: 500}} onClick={redirectToPost}/>
                         <ImageIcon className="icon" fontSize='large' color='secondary' onClick={redirectToPost}/>
                         <TollIcon className="icon" fontSize='large' color='secondary' onClick={redirectToPost}/>
                     </div>

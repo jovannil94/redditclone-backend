@@ -12,28 +12,34 @@ const LogIn = (props) => {
         }
     }, [user])
     return (
-        <div>
-            <TextField id="filled-basic" label="Email" variant="filled" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
+        <div className="loginContainer">
+            { !userExist ?
+                <h2 className="logInTitle">Log In</h2>
+                : <h2 className="logInTitle">Create an Account</h2>
+            }
+            <TextField id="outlined-basic" color='secondary' variant="outlined" label="Email" autoFocus required value={email} onChange={(e) => setEmail(e.target.value)}/>
             <p>{emailError}</p>
-            <TextField id="filled-basic" label="Password" variant="filled" type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <TextField id="outlined-basic" color='secondary' variant="outlined" label="Password" type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
             <p>{passwordError}</p>
             <div>
                 {!userExist ?
                 <div>
-                    <Button variant="contained" onClick={handleLogIn}>Log In</Button>
+                    <Button variant="contained" color='secondary' onClick={handleLogIn}>Log In</Button>
                     <p>
                         Don't have an account?
-                        <span onClick={() => setUserExist(!userExist)}>Sign Up</span>
+                        <br/>
+                        <span className="logInClick" onClick={() => setUserExist(!userExist)}>Sign Up</span>
                     </p>
                 </div>
                 : 
-                <div>
-                    <TextField id="filled-basic" label="Username" variant="filled" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
+                <div className="logInUserName">
+                    <TextField id="outlined-basic" color='secondary' variant="outlined" label="Username" autoFocus required value={userName} onChange={(e) => setUserName(e.target.value)}/>
                     <p>{userNameError}</p>
-                    <Button variant="contained" onClick={handleSignUp}>Sign Up</Button>
+                    <Button variant="contained" color='secondary' onClick={handleSignUp}>Sign Up</Button>
                     <p>
                         Have an account?
-                        <span onClick={() => setUserExist(!userExist)}>Login</span>
+                        <br/>
+                        <span className="logInClick" onClick={() => setUserExist(!userExist)}>Login</span>
                     </p>
                 </div>}
             </div>

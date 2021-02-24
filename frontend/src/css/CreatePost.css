@@ -60,3 +60,32 @@
     font-size: 20px;
     border-radius: 12px;
 }
+
+.uploadFile {
+    color: transparent;
+  }
+  .uploadFile::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .uploadFile::before {
+    display: flex;
+    height: 100%;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    content: 'Upload';
+    color: white;
+    background: -webkit-linear-gradient(top, #1072C4, #1072C4);
+    border-radius: 3px;
+    padding: 5px 8px;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 15pt;
+  }
+  .uploadFile:active {
+    outline: 0;
+  }
+  .uploadFile:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  }
