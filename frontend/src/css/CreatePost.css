@@ -1,13 +1,24 @@
 .createPostContainer {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
 }
 
-.createPostSelector {
-    height: 8vh;
+.createPostSelectContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    color: black;
     width: 50vw;
+    height: 5vh;
+    border: solid lightgrey 1px;
+    border-radius: 1px;
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .createForm {
@@ -16,12 +27,13 @@
     color: black;
     height: 50vh;
     width: 50vw;
-    border: solid black 1px;
+    border: solid lightgrey 1px;
     border-radius: 5px;
+    background-color: white;
     margin: auto;
     padding: 20px;
-    background-color: lightgrey;
     justify-content: space-between;
+    text-align: left;
 }
 
 .createFormTitle {
@@ -34,8 +46,6 @@
     height: 30vh;
     border-radius: 5px;
     border: solid 2px white;
-    /* text-align: start; */
-    /* Text is centered and not at the start for some reason */
 }
 
 .createFormSubmit {

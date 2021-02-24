@@ -3,3 +3,25 @@
     flex-direction: column;
     height: 100vh;
 }
+
+.homeCreatePost {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: left;
+    color: black;
+    width: 60vw;
+    height: 5vh;
+    border: solid lightgrey 1px;
+    border-radius: 1px;
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.icon:hover {
+    cursor: pointer;
+}

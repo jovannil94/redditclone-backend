@@ -80,7 +80,7 @@ const NavBar = () => {
     }, []);
 
     return(
-        <AppBar width="100%" position="static">
+        <AppBar style={{height: 55}} position="static">
             <Toolbar>
             <Grid
             justify="space-between"
@@ -91,7 +91,7 @@ const NavBar = () => {
                     <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
                 </Grid>
                 <Grid item>
-                    <PageviewIcon/>
+                    <PageviewIcon fontSize='large' color='secondary'/>
                     <FormControl className={classes.formControl}>
                         <NativeSelect
                         value={chosen}

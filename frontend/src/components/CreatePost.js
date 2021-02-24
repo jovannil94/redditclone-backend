@@ -6,10 +6,10 @@ import { UserContext } from "../provider/UserProvider";
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { storage } from "../Fire";
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const CreatePost = () => {
     const [subreddits, setSubreddits] = useState([]);
@@ -81,23 +81,23 @@ const CreatePost = () => {
 
     return(
         <div className="createPostContainer">
-            <FormControl>
-                <Select
-                labelId="simple-select-label"
-                id="simple-select"
-                displayEmpty
-                value={chosenSub}
-                onChange={handleChange}
-                >
-                <MenuItem disabled default>Choose a Community</MenuItem>
-                {subreddits.map((subreddit) =>
-                    <MenuItem key={subreddit.id} value={ subreddit.id }>/r{subreddit.subname}</MenuItem>
-                )}
-                </Select>
-            </FormControl>
+            <div className="createPostSelectContainer">
+                <PostAddIcon fontSize='large' color='secondary'/>
+                <FormControl>
+                    <NativeSelect
+                        value={chosenSub}
+                        onChange={handleChange}
+                    >
+                        <option hidden>Choose a Community</option>
+                            {subreddits.map((subreddit) => 
+                        <option key={subreddit.id} value={ subreddit.id }>/r{subreddit.subname}</option>
+                            )}
+                    </NativeSelect>
+                </FormControl>
+            </div>
             <form className="createForm" onSubmit={handleSubmit}>
-                <TextField id="filled-basic" label="Title" variant="filled" autoFocus required {...titleContext}/>
-                <TextField id="filled-basic" label="Text(optional)" variant="filled" autoFocus {...bodyContext}/>
+                <TextField id="outlined-basic" label="Title" variant="outlined" autoFocus required {...titleContext}/>
+                <TextField id="outlined-basic" label="Text(optional)" variant="outlined" autoFocus {...bodyContext}/>
                 <label>Upload Image (optional)</label>
                 <input type="file" onChange={handleFile}/>
                 <Button variant="contained" type="submit">Post</Button>

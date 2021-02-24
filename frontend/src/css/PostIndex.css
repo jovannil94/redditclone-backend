@@ -4,13 +4,14 @@
     justify-content: space-evenly;
     text-align: left;
     color: black;
-    width: 40vw;
+    width: 60vw;
     height: fit-content;
     border: solid lightgrey 1px;
     border-radius: 1px;
     background-color: white;
     margin: auto;
     padding: 20px;
+    margin-bottom: 1%;
 }
 
 .postCount{
