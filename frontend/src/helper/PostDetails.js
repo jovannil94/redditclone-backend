@@ -71,7 +71,6 @@ const PostDetails = () => {
     }
 
     const handlePostVote = async (type) => {
-        debugger
         if (user !== null) {
             try {
                 let didVote = await axios.post("http://localhost:3001/votes/check",{
@@ -114,9 +113,9 @@ const PostDetails = () => {
     return(
         <div className="singlePostCard">
             <div className="postVotes">
-                <ArrowUpwardIcon style={{ color: '#F74202' }} onClick={() => handlePostVote("up")}/>
+                <ArrowUpwardIcon className="icon" style={{ color: '#F74202' }} onClick={() => handlePostVote("up")}/>
                 <p className="postCount">{showPostVotes}</p>
-                <ArrowDownwardIcon style={{ color: '#8D8FF7' }} onClick={() => handlePostVote("down")}/>
+                <ArrowDownwardIcon className="icon" style={{ color: '#8D8FF7' }} onClick={() => handlePostVote("down")}/>
             </div>
             <div className="postContent">
                 <div className="postHolder">

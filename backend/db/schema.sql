@@ -31,6 +31,12 @@ CREATE TABLE posts(
     comments VARCHAR
 );
 
+CREATE TABLE subscriptions(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    sub_id INTEGER REFERENCES subreddits(id) ON DELETE CASCADE
+);
+
 CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

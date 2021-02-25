@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import DisplayPost from "../helper/DisplayPosts";
+import "../css/Subreddit.css"
 
 const Subreddit = () => {
     const [getDetails, setGetDetails] = useState([]);
@@ -21,7 +22,7 @@ const Subreddit = () => {
 
     return (
         <div className="subContainer">
-            <h1>/r/{getDetails.subname}</h1>
+            <h1 className="subTitle">/r/{getDetails.subname}</h1>
             <div className="subFeed">
                 <DisplayPost choosen={getDetails.id}/>
             </div>
