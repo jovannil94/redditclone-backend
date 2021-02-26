@@ -4,22 +4,13 @@ import axios from "axios";
 import DisplayPost from "../helper/DisplayPosts";
 import { UserContext } from "../provider/UserProvider";
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import "../css/Subreddit.css"
-
-const useStyles = makeStyles(theme => ({
-    button: {
-      margin: theme.spacing(1),
-      borderRadius: "5em"
-    },
-  }));
 
 const Subreddit = () => {
     const [getDetails, setGetDetails] = useState([]);
     const { id } = useParams();
     const { userID } = useContext(UserContext);
     const [subscribed, setSubscribed] = useState(false);
-    const classes = useStyles();
     
     useEffect(() => {
         const isUserSubscribed = async () => {
@@ -55,8 +46,8 @@ const Subreddit = () => {
                     <p className="subRoute">/r/{getDetails.subname}</p>
                 </div>
                 { subscribed ? 
-                <Button className={classes.root} variant="contained" color='secondary' type="submit" size={'small'}>Leave</Button>
-                :<Button className={classes.root} variant="contained" color='secondary' type="submit" size={'small'}>Join</Button>
+                <Button variant="contained" color='secondary' type="submit" style={{height:50, width: 100}}>Leave</Button>
+                :<Button variant="contained" color='secondary' type="submit" style={{height:50, width: 100}}>Join</Button>
                 }
             </div>
             <div className="subFeed">
