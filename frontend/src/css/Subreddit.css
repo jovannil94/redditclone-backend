@@ -1,8 +1,18 @@
 .subContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    align-items: center;
+}
+
+.subInfo { 
+    display: flex;
+    flex-direction: row;
+    margin-top: 1%;
+}
+
+.subHeader {
+    display: flex;
+    flex-direction: column;
 }
 
 .subFeed {
@@ -11,4 +21,5 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 1%;
 }
