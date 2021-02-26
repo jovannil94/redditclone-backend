@@ -7,9 +7,9 @@
 .subInfo { 
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 62vw;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 1%;
 }
 
@@ -19,9 +19,9 @@
 }
 
 .subFeed {
-    height: fit-content;
     display: flex;
     flex-direction: column;
+    height: fit-content;
     align-items: center;
     justify-content: center;
     margin-top: 1%;

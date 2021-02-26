@@ -49,12 +49,12 @@ const getSubCount = async (req, res, next) => {
 
 const isUserSub = async (req, res, next) => {
     try {
-        let didSub = await db.any(`
+        let didSub = await db.one(`
         SELECT * FROM subscriptions
         WHERE user_id = $/user_id/ 
         AND sub_id = $/sub_id/`, {
-            user_id: req.body.user_id,
-            sub_id: req.body.sub_id
+            user_id: req.params.user_id,
+            sub_id: req.params.sub_id
         });
         res.status(200).json({
             status: "Success",
@@ -64,8 +64,7 @@ const isUserSub = async (req, res, next) => {
     } catch (err) {
         res.status(400).json({
             status: "Error",
-            message: "User did not sub",
-            payload: err
+            message: "User did not sub"
         })
         next()
     }

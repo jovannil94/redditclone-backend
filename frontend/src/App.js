@@ -144,7 +144,7 @@ function App() {
                 userNameError={userNameError}
               />}
             />
-            <Route exact path={"/subreddit/:id"} component={Subreddit}/>
+            <Route exact path={"/subreddit/:subname"} component={Subreddit}/>
             <Route exact path={"/addpost"} component={CreatePost}/>
             <Route exact path={"/addsubreddit"} component={CreateSubreddit}/>
             <Route exact path={"/post/:id"} component={PostDetails}/>

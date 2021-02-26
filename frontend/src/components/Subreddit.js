@@ -7,43 +7,42 @@ import Button from '@material-ui/core/Button';
 import "../css/Subreddit.css"
 
 const Subreddit = () => {
-    const [getDetails, setGetDetails] = useState([]);
-    const { id } = useParams();
+    const [subredditDetails, setSubredditDetails] = useState([]);
+    const { subname } = useParams();
     const { userID } = useContext(UserContext);
     const [subscribed, setSubscribed] = useState(false);
     
     useEffect(() => {
-        const isUserSubscribed = async () => {
+        const isUserSubscribed = async (id) => {
             try {
                 let res = await axios.get(`http://localhost:3001/subscriptions/usersubbed/${userID}/${id}`);
-                debugger
-                if(res.data.payload.length > 0) {
-                    setSubscribed(true)
-                    //payload is returning with an empty array also userID not showing up, edit id for sub
+                if(res.data.payload) {
+                    setSubscribed(true);
                 }
             } catch (error) {
+                setSubscribed(false);
                 console.log(error)
             }
         };
 
         const fetchDetails = async () => {
             try {
-                let res = await axios.get(`http://localhost:3001/subreddits/${id}`);
-                setGetDetails(res.data.payload);
+                let res = await axios.get(`http://localhost:3001/subreddits/${subname}`);
+                setSubredditDetails(res.data.payload);
+                isUserSubscribed(res.data.payload.id);
             } catch (error) {
                 console.log(error)
             }
         }; 
         fetchDetails();
-        // isUserSubscribed();
-    }, [id])
+    }, [subname, userID])
 
     return (
         <div className="subContainer">
             <div className="subInfo">
                 <div className="subHeader">
-                    <h1 className="subTitle">{getDetails.subname}</h1>
-                    <p className="subRoute">/r/{getDetails.subname}</p>
+                    <h1 className="subTitle">{subredditDetails.subname}</h1>
+                    <p className="subRoute">/r/{subredditDetails.subname}</p>
                 </div>
                 { subscribed ? 
                 <Button variant="contained" color='secondary' type="submit" style={{height:50, width: 100}}>Leave</Button>
@@ -51,7 +50,7 @@ const Subreddit = () => {
                 }
             </div>
             <div className="subFeed">
-                <DisplayPost choosen={getDetails.id}/>
+                <DisplayPost choosen={subredditDetails.id}/>
             </div>
             
         </div>
