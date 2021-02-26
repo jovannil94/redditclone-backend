@@ -9,6 +9,7 @@ import fire from "./../Fire";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RedditIcon from '@material-ui/icons/Reddit';
+import IconButton from '@material-ui/core/IconButton';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import moment from "moment";
@@ -113,9 +114,13 @@ const PostDetails = () => {
     return(
         <div className="singlePostCard">
             <div className="postVotes">
-                <ArrowUpwardIcon className="icon" style={{ color: '#F74202' }} onClick={() => handlePostVote("up")}/>
+                <IconButton aria-label="up" onClick={() => handlePostVote("up")}>
+                    <ArrowUpwardIcon className="icon" style={{ color: '#F74202' }}/>
+                </IconButton>
                 <p className="postCount">{showPostVotes}</p>
-                <ArrowDownwardIcon className="icon" style={{ color: '#8D8FF7' }} onClick={() => handlePostVote("down")}/>
+                <IconButton aria-label="down" onClick={() => handlePostVote("down")}>
+                    <ArrowDownwardIcon className="icon" style={{ color: '#8D8FF7' }}/>
+                </IconButton>
             </div>
             <div className="postContent">
                 <div className="postHolder">
