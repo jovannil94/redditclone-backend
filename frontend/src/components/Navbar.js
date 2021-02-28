@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import "../css/Navbar.css";
 import logo from "../images/redditLogo.png";
@@ -16,6 +16,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { UserContext } from "../provider/UserProvider";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const NavBar = () => {
-    const user = fire.auth().currentUser;
+    const fireUser = fire.auth().currentUser;
     const [subreddits, setSubreddits] = useState([]);
     const [chosen, setChosen] = useState("");
     const history = useHistory();
@@ -38,6 +39,7 @@ const NavBar = () => {
     const logInRedirect = () => history.push(`/login`);
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { userID } = useContext(UserContext);
 
     const subredditRedirect = (selected) => {
         history.push({
@@ -45,12 +47,14 @@ const NavBar = () => {
         });
     }
     
-    const fetchSubreddits = async () => {
-        try {
-            let res = await axios.get(`http://localhost:3001/subreddits/`)
-            setSubreddits(res.data.payload)
-        } catch (error) {
-            console.log(error)
+    const fetchSubscriptions = async () => {
+        if(userID != null) {
+            try {
+                let res = await axios.get(`http://localhost:3001/subscriptions/user/${userID}`);
+                setSubreddits(res.data.payload)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -93,8 +97,8 @@ const NavBar = () => {
     }
 
     useEffect(() => {
-        fetchSubreddits()
-    }, []);
+        fetchSubscriptions()
+    }, [userID]);
 
     return(
         <AppBar style={{height: 60}} position="static">
@@ -127,10 +131,10 @@ const NavBar = () => {
                     </FormControl>
                 </Grid>
                 <Grid item>
-                { user ?
+                { fireUser ?
                     <div>
                         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClickOpen}>
-                            {user.displayName}
+                            {fireUser.displayName}
                         </Button>
                         <Menu
                             id="simple-menu"

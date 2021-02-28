@@ -117,7 +117,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <UserProvider>
-          <NavBar user={user}/>
+          <NavBar/>
           <Switch>
             <Route exact path={"/"}
               render={() =>
