@@ -1,5 +1,6 @@
 .App {
   background-color: #DAE0E6;
   width: auto;
+  min-height: 100vh;
   height: fit-content;
 }
