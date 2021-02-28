@@ -17,6 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { UserContext } from "../provider/UserProvider";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
     const fireUser = fire.auth().currentUser;
+    const [subscriptions, setSubscriptions] = useState([]);
     const [subreddits, setSubreddits] = useState([]);
     const [chosen, setChosen] = useState("");
     const history = useHistory();
@@ -47,21 +50,10 @@ const NavBar = () => {
         });
     }
     
-    const fetchSubscriptions = async () => {
-        if(userID != null) {
-            try {
-                let res = await axios.get(`http://localhost:3001/subscriptions/user/${userID}`);
-                setSubreddits(res.data.payload)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }
-
     const handleLogoClick = () => {
         homeRedirect()
     }
-
+    
     const handleChange = async (e) => {
         e.preventDefault();
         let sub = e.target.value
@@ -72,7 +64,7 @@ const NavBar = () => {
             subredditRedirect(sub)
         }
     }
-
+    
     
     const logIn = () => {
         logInRedirect();
@@ -91,15 +83,27 @@ const NavBar = () => {
         fire.auth().signOut();
         window.location.href = "./"
     }
-      const redirectToSubreddit = () => {
+    const redirectToSubreddit = () => {
         handleClickClose();
         history.push(`/addsubreddit`);
     }
-
+    
     useEffect(() => {
-        fetchSubscriptions()
+        const fetchSubs = async () => {
+            if(userID != null) {
+                try {
+                    let subscriptions = await axios.get(`http://localhost:3001/subscriptions/user/${userID}`);
+                    let subreddits = await axios.get(`http://localhost:3001/subreddits/`);
+                    setSubscriptions(subscriptions.data.payload);
+                    setSubreddits(subreddits.data.payload);
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        }
+        fetchSubs()
     }, [userID]);
-
+    
     return(
         <AppBar style={{height: 60}} position="static">
             <Toolbar>
@@ -124,11 +128,20 @@ const NavBar = () => {
                         }}
                         >
                             <option value="Home">Home</option>
-                            {subreddits.map((subreddit) => 
+                            {subscriptions.map((subreddit) => 
                                 <option key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</option>
                             )}
                         </NativeSelect>
                     </FormControl>
+                </Grid>
+                <Grid item>
+                    <Autocomplete
+                        id="combo-box-subs"
+                        options={subreddits}
+                        getOptionLabel={(option) => option.subname}
+                        style={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Search" variant="outlined"/>}
+                    />
                 </Grid>
                 <Grid item>
                 { fireUser ?
