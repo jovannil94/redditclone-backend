@@ -37,6 +37,8 @@ const NavBar = () => {
     const [subscriptions, setSubscriptions] = useState([]);
     const [subreddits, setSubreddits] = useState([]);
     const [chosen, setChosen] = useState("");
+    const [value, setValue] = useState(subreddits[0]);
+    const [inputValue, setInputValue] = useState("");
     const history = useHistory();
     const homeRedirect = () => history.push(`/`);
     const logInRedirect = () => history.push(`/login`);
@@ -102,8 +104,29 @@ const NavBar = () => {
                 }
             }
         }
+
+        const handleSearchClick = (value) => {
+            if(value != undefined || value != null){
+                subredditRedirect(value.subname);
+            }
+        }
+        const handleSearchInput = async (value) => {
+            if(value != undefined || value != null){
+                try {
+                    let sub = await axios.get(`http://localhost:3001/subreddits/${value}`);
+                    if(sub.data.payload.subname){
+                        subredditRedirect(value);
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        }
+
+        handleSearchClick(value);
+        handleSearchInput(inputValue);
         fetchSubs()
-    }, [userID]);
+    }, [ userID, value ]);
     
     return(
         <AppBar style={{height: 60}} position="static">
@@ -138,12 +161,21 @@ const NavBar = () => {
                     <PageviewIcon fontSize='large' color='secondary'/>
                     <Autocomplete
                         id="combo-box-subs"
+                        value={value}
+                        onChange={(e, newValue) => {
+                            setValue(newValue);
+                        }}
+                        inputValue={inputValue}
+                        onInputChange={(e, newInputValue) => {
+                            setInputValue(newInputValue);
+                        }}
                         clearOnEscape
                         options={subreddits}
                         getOptionLabel={(option) => option.subname}
                         style={{ width: 300 }}
+                        autoHighlight
                         renderInput={(params) => 
-                        <TextField {...params} value={ params } onSubmit={handleChange} label="Search" variant="outlined"/>}
+                        <TextField {...params} value={ params } label="Search" variant="outlined"/>}
                     />
                 </Grid>
                 <Grid item>
