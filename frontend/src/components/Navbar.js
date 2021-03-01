@@ -57,14 +57,15 @@ const NavBar = () => {
     const handleChange = async (e) => {
         e.preventDefault();
         let sub = e.target.value
-        setChosen(sub)
-        if(sub === "Home") {
-            homeRedirect();
-        } else {
-            subredditRedirect(sub)
+        if(sub != "") {
+            setChosen(sub)
+            if(sub === "Home") {
+                homeRedirect();
+            } else {
+                subredditRedirect(sub)
+            }
         }
     }
-    
     
     const logIn = () => {
         logInRedirect();
@@ -116,7 +117,6 @@ const NavBar = () => {
                     <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
                 </Grid>
                 <Grid item>
-                    <PageviewIcon fontSize='large' color='secondary'/>
                     <FormControl className={classes.formControl}>
                         <NativeSelect
                         color='secondary'
@@ -134,13 +134,16 @@ const NavBar = () => {
                         </NativeSelect>
                     </FormControl>
                 </Grid>
-                <Grid item>
+                <Grid item className="navBarSearch">
+                    <PageviewIcon fontSize='large' color='secondary'/>
                     <Autocomplete
                         id="combo-box-subs"
+                        clearOnEscape
                         options={subreddits}
                         getOptionLabel={(option) => option.subname}
                         style={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Search" variant="outlined"/>}
+                        renderInput={(params) => 
+                        <TextField {...params} value={ params } onSubmit={handleChange} label="Search" variant="outlined"/>}
                     />
                 </Grid>
                 <Grid item>
