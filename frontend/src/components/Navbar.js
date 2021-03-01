@@ -53,6 +53,7 @@ const NavBar = () => {
     }
     
     const handleLogoClick = () => {
+        setChosen("Home")
         homeRedirect()
     }
     
@@ -125,7 +126,7 @@ const NavBar = () => {
 
         handleSearchClick(value);
         handleSearchInput(inputValue);
-        fetchSubs()
+        fetchSubs();
     }, [ userID, value ]);
     
     return(
@@ -139,24 +140,27 @@ const NavBar = () => {
                 <Grid item>
                     <img src={logo} className="Logo" alt="" onClick={handleLogoClick}/>
                 </Grid>
-                <Grid item>
-                    <FormControl className={classes.formControl}>
-                        <NativeSelect
-                        color='secondary'
-                        value={chosen}
-                        onChange={handleChange}
-                        inputProps={{
-                            name: 'subreddit',
-                            id: 'subname',
-                        }}
-                        >
-                            <option value="Home">Home</option>
-                            {subscriptions.map((subreddit) => 
-                                <option key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</option>
-                            )}
-                        </NativeSelect>
-                    </FormControl>
-                </Grid>
+                { fireUser ?
+                    <Grid item>
+                        <FormControl className={classes.formControl}>
+                            <NativeSelect
+                            color='secondary'
+                            value={chosen}
+                            onChange={handleChange}
+                            inputProps={{
+                                name: 'subreddit',
+                                id: 'subname',
+                            }}
+                            >
+                                <option value="Home">Home</option>
+                                {subscriptions.map((subreddit) => 
+                                    <option key={subreddit.id} value={ subreddit.subname }>/r{subreddit.subname}</option>
+                                )}
+                            </NativeSelect>
+                        </FormControl>
+                    </Grid>
+                    : null
+                }
                 <Grid item className="navBarSearch">
                     <PageviewIcon fontSize='large' color='secondary'/>
                     <Autocomplete

@@ -17,6 +17,8 @@ const CreatePost = () => {
     const [urlLink, setUrlLink] = useState("");
     const titleContext = useInputs("");
     const bodyContext = useInputs("");
+    const [filePreview, setFilePreview] = useState([]);
+    const [fileName, setFileName] = useState([]);
     const { userID } = useContext(UserContext);
     const history = useHistory();
     const homeRedirect = () => history.push(`/`);
@@ -38,6 +40,9 @@ const CreatePost = () => {
     const handleFile = (e) => {
         e.preventDefault();
         let file = e.target.files[0];
+        debugger
+        setFileName(file.name)
+        setFilePreview(URL.createObjectURL(file))
         if(file) {
             const uploadImage = storage.ref(`images/${file.name}`).put(file)
             uploadImage.on(
@@ -100,6 +105,13 @@ const CreatePost = () => {
                 <TextField id="outlined-basic" color='secondary' label="Text(optional)" variant="outlined" autoFocus {...bodyContext}/>
                 <label>Upload Image (optional)</label>
                 <input className="uploadFile" type="file" onChange={handleFile}/>
+                {filePreview.length > 0 ?
+                    <div className="upPreviewDetails">
+                        <p>{fileName}</p>
+                        <img className="uploadPreview" src={filePreview} alt="preview_image"/>
+                    </div>
+                    : null
+                }
                 <Button variant="contained" color='secondary' type="submit">Post</Button>
             </form>
         </div>
