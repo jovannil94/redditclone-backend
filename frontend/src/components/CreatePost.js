@@ -40,7 +40,6 @@ const CreatePost = () => {
     const handleFile = (e) => {
         e.preventDefault();
         let file = e.target.files[0];
-        debugger
         setFileName(file.name)
         setFilePreview(URL.createObjectURL(file))
         if(file) {

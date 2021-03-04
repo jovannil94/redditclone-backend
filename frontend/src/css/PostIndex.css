@@ -59,5 +59,6 @@
 
 .postImage {
     height: auto;
-    width: 100%;
+    max-width: max-content;
+    min-width: 30vw;
 }

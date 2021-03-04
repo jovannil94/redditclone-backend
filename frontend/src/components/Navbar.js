@@ -60,7 +60,7 @@ const NavBar = () => {
     const handleChange = async (e) => {
         e.preventDefault();
         let sub = e.target.value
-        if(sub != "") {
+        if(sub !== "") {
             setChosen(sub)
             if(sub === "Home") {
                 homeRedirect();
@@ -94,25 +94,25 @@ const NavBar = () => {
     
     useEffect(() => {
         const fetchSubs = async () => {
-            if(userID != null) {
-                try {
+            try {
+                if(userID !== null) {
                     let subscriptions = await axios.get(`http://localhost:3001/subscriptions/user/${userID}`);
-                    let subreddits = await axios.get(`http://localhost:3001/subreddits/`);
                     setSubscriptions(subscriptions.data.payload);
-                    setSubreddits(subreddits.data.payload);
-                } catch (error) {
-                    console.log(error)
                 }
+                let subreddits = await axios.get(`http://localhost:3001/subreddits/`);
+                setSubreddits(subreddits.data.payload);
+            } catch (error) {
+                console.log(error)
             }
         }
 
         const handleSearchClick = (value) => {
-            if(value != undefined || value != null){
-                subredditRedirect(value.subname);
+            if(value !== undefined || value !== null){
+                subredditRedirect(value);
             }
         }
         const handleSearchInput = async (value) => {
-            if(value != undefined || value != null){
+            if(value !== undefined || value !== null){
                 try {
                     let sub = await axios.get(`http://localhost:3001/subreddits/${value}`);
                     if(sub.data.payload.subname){
