@@ -9,6 +9,7 @@ const getUsers = async (req, res, next) => {
             payload: users
         })
     } catch (err){
+        console.log(err)
         res.status(400).json({
             status: "Error",
             message: "Couldn't get all users",
