@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS cta_reddit_db;
-CREATE DATABASE cta_reddit_db;
-
-\c cta_reddit_db;
-
 DROP TABLE IF EXISTS votes;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS posts;
